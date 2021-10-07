@@ -40,7 +40,7 @@ export const WeekdaySelect = (props) => {
               key={idx}
               onClick={(e) => toggleDay(e, idx)}
               style={{ marginTop: "1px", marginBottom: "1px" }}
-              className={`w-10 h-10 bg-gray-50 focus:outline-none px-3 py-1 rounded-none ${
+              className={`w-10 h-10 bg-gray-500 focus:outline-none px-3 py-1 rounded-none ${
                 idx === 0 ? "rounded-l" : "border-l-0"
               } ${idx === days.length - 1 ? "rounded-r" : ""}`}>
               {day}
