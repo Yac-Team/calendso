@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import Select from "react-select";
 import TimezoneSelect from "react-timezone-select";
 
-import { asStringOrNull, asStringOrUndefined } from "@lib/asStringOrNull";
+import { asStringOrUndefined } from "@lib/asStringOrNull";
 import { getSession } from "@lib/auth";
 import { extractLocaleInfo, localeLabels, localeOptions, OptionType } from "@lib/core/i18n/i18n.utils";
 import { useLocale } from "@lib/hooks/useLocale";
@@ -34,7 +34,6 @@ export default function Settings(props: InferGetServerSidePropsType<typeof getSe
   const nameRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>();
   const avatarRef = useRef<HTMLInputElement>(null);
-  const hideBrandingRef = useRef<HTMLInputElement>(null);
   const [asyncUseCalendar, setAsyncUseCalendar] = useState({ value: props.user.asyncUseCalendar });
   const [selectedTheme, setSelectedTheme] = useState({ value: props.user.theme });
   const [selectedTimeZone, setSelectedTimeZone] = useState({ value: props.user.timeZone });
@@ -68,7 +67,6 @@ export default function Settings(props: InferGetServerSidePropsType<typeof getSe
     const enteredAvatar = avatarRef.current.value;
     const enteredTimeZone = selectedTimeZone.value;
     const enteredWeekStartDay = selectedWeekStartDay.value;
-    const enteredHideBranding = hideBrandingRef.current.checked;
     const enteredAsyncUseCalendar = asyncUseCalendar.value;
     const enteredLanguage = selectedLanguage.value;
 
@@ -82,8 +80,6 @@ export default function Settings(props: InferGetServerSidePropsType<typeof getSe
         avatar: enteredAvatar,
         timeZone: enteredTimeZone,
         weekStart: asStringOrUndefined(enteredWeekStartDay),
-        hideBranding: enteredHideBranding,
-        theme: asStringOrNull(selectedTheme?.value),
         locale: enteredLanguage,
         asyncUseCalendar: enteredAsyncUseCalendar,
       })
@@ -224,24 +220,26 @@ export default function Settings(props: InferGetServerSidePropsType<typeof getSe
                     />
                   </div>
                 </div>
-                <div>
-                  <label htmlFor="weekStart" className="block text-sm font-medium text-gray-700">
-                    First Day of Week
-                  </label>
-                  <div className="mt-1">
-                    <Select
-                      id="weekStart"
-                      value={selectedWeekStartDay}
-                      onChange={setSelectedWeekStartDay}
-                      classNamePrefix="react-select"
-                      className="block w-full mt-1 border border-gray-300 rounded-sm shadow-sm react-select-container focus:ring-neutral-500 focus:border-neutral-500 sm:text-sm"
-                      options={[
-                        { value: "Sunday", label: "Sunday" },
-                        { value: "Monday", label: "Monday" },
-                      ]}
-                    />
+                {Math.random() > 1 && (
+                  <div>
+                    <label htmlFor="weekStart" className="block text-sm font-medium text-gray-700">
+                      First Day of Week
+                    </label>
+                    <div className="mt-1">
+                      <Select
+                        id="weekStart"
+                        value={selectedWeekStartDay}
+                        onChange={setSelectedWeekStartDay}
+                        classNamePrefix="react-select"
+                        className="block w-full mt-1 border border-gray-300 rounded-sm shadow-sm react-select-container focus:ring-neutral-500 focus:border-neutral-500 sm:text-sm"
+                        options={[
+                          { value: "Sunday", label: "Sunday" },
+                          { value: "Monday", label: "Monday" },
+                        ]}
+                      />
+                    </div>
                   </div>
-                </div>
+                )}
                 <div>
                   <label htmlFor="theme" className="block text-sm font-medium text-gray-700">
                     Single Theme
