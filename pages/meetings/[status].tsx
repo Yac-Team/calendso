@@ -45,7 +45,7 @@ export default function Bookings(props) {
                 empty={() => (
                   <EmptyScreen
                     Icon={CalendarIcon}
-                    headline={`No ${status} bookings, yet`}
+                    headline={`No ${status} meetings, yet`}
                     description={`You have no ${status} meetings. ${descriptionByStatus[status]}`}
                   />
                 )}

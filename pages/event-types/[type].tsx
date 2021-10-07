@@ -501,7 +501,7 @@ const EventTypePage = (props: InferGetServerSidePropsType<typeof getServerSidePr
                                         </div>
                                       )}
                                       {location.type === LocationType.Zoom && (
-                                        <div className="flex items-center flex-grow">
+                                        <div className="flex items-center flex-grow text-gray-700">
                                           <svg
                                             className="w-6 h-6"
                                             viewBox="0 0 64 64"
