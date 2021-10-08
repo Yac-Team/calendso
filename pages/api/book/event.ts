@@ -292,19 +292,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return;
       }
       const yacToken = (yacCredential.key as any).api_token;
-      const { groupDetails = {} } = await (
-        await fetch("https://api-v3.yacchat.com/api/v1/group/create", {
-          method: "POST",
-          headers: {
-            Authorization: yacToken,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: req.body.topic,
-            bio: req.body.notes || "",
-          }),
-        })
-      ).json();
+      console.log("STEP 1");
+      console.log({ yacCredential });
+      const groupCreateRes = await fetch("https://api-v3.yacchat.com/api/v1/group/create", {
+        method: "POST",
+        headers: {
+          Authorization: yacToken,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: req.body.topic,
+          bio: req.body.notes || "",
+        }),
+      });
+      const { groupDetails = {}, ...restx } = await groupCreateRes.json();
+      console.log({ groupDetails, restx });
       const { id: groupId } = groupDetails;
 
       await fetch(`https://api-v3.yacchat.com/api/v2/groups/${groupId}/members`, {
@@ -318,6 +320,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           resendInvite: true,
         }),
       });
+      console.log("STEP 2");
       const { inviteLink } = await (
         await fetch(`https://api-v3.yacchat.com/api/v2/groups/${groupId}/invite-link`, {
           method: "GET",
@@ -327,6 +330,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           },
         })
       ).json();
+      console.log({ inviteLink });
       evt.location = inviteLink;
     }
   } catch (error) {
