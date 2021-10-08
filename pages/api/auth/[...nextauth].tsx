@@ -81,8 +81,15 @@ export default NextAuth({
               },
             })
           ).json()) || {}
-        ).sessionData as { image: string; email: string };
-        const { id, realName: name, username, email, image } = { ...yacSessionData, ...yacProfileData };
+        ).sessionData as { image: string; email: string; teamId: string };
+        const {
+          id,
+          realName: name,
+          username,
+          email,
+          image,
+          teamId,
+        } = { ...yacSessionData, ...yacProfileData };
 
         await prisma.user.upsert({
           where: { id },
@@ -91,6 +98,7 @@ export default NextAuth({
             email,
             name,
             avatar: image,
+            teamId,
           },
           create: {
             id,
@@ -100,6 +108,7 @@ export default NextAuth({
             emailVerified: new Date(Date.now()),
             avatar: image,
             asyncUseCalendar: true,
+            teamId,
           },
         });
         const yacCredential = await prisma.credential.findFirst({

@@ -110,16 +110,18 @@ export default function Success(props: InferGetServerSidePropsType<typeof getSer
                       <div className="grid grid-cols-3 py-4 mt-4 text-left text-gray-700 border-t border-b">
                         <div className="font-medium">What</div>
                         <div className="col-span-2 mb-6">{eventName}</div>
-                        <div className="font-medium">When</div>
                         {date && (
-                          <div className="col-span-2 mb-6">
-                            {date.format("dddd, DD MMMM YYYY")}
-                            <br />
-                            {date.format(is24h ? "H:mm" : "h:mma")} - {props.eventType.length} mins{" "}
-                            <span className="text-gray-500">
-                              ({localStorage.getItem("timeOption.preferredTimeZone") || dayjs.tz.guess()})
-                            </span>
-                          </div>
+                          <>
+                            <div className="font-medium">When</div>
+                            <div className="col-span-2 mb-6">
+                              {date.format("dddd, DD MMMM YYYY")}
+                              <br />
+                              {date.format(is24h ? "H:mm" : "h:mma")} - {props.eventType.length} mins{" "}
+                              <span className="text-gray-500">
+                                ({localStorage.getItem("timeOption.preferredTimeZone") || dayjs.tz.guess()})
+                              </span>
+                            </div>
+                          </>
                         )}
                         {location && (
                           <>

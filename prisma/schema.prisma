@@ -87,12 +87,12 @@ model User {
   availability        Availability[]
   selectedCalendars   SelectedCalendar[]
   completedOnboarding Boolean?           @default(false)
-  locale String?
+  locale              String?
   twoFactorSecret     String?
   twoFactorEnabled    Boolean            @default(false)
   //Dont delete this
   asyncUseCalendar    Boolean            @default(true)
-
+  teamId              Int?
   plan     UserPlan   @default(PRO)
   Schedule Schedule[]
 

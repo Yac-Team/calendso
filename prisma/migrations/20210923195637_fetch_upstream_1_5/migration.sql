@@ -5,26 +5,30 @@
 
 */
 -- CreateEnum
-CREATE TYPE "PaymentType" AS ENUM ('STRIPE');
+DO $$ BEGIN
+    CREATE TYPE "PaymentType" AS ENUM ('STRIPE');
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
 
 -- AlterTable
-ALTER TABLE "Booking" ADD COLUMN     "paid" BOOLEAN NOT NULL DEFAULT false;
+ALTER TABLE "Booking" ADD COLUMN  IF NOT EXISTS   "paid" BOOLEAN NOT NULL DEFAULT false;
 
 -- AlterTable
-ALTER TABLE "BookingReference" ADD COLUMN     "meetingId" TEXT,
+ALTER TABLE "BookingReference" ADD COLUMN  IF NOT EXISTS    "meetingId" TEXT,
 ADD COLUMN     "meetingPassword" TEXT,
 ADD COLUMN     "meetingUrl" TEXT;
 
 -- AlterTable
-ALTER TABLE "EventType" ADD COLUMN     "currency" TEXT NOT NULL DEFAULT E'usd',
-ADD COLUMN     "disableGuests" BOOLEAN NOT NULL DEFAULT false,
-ADD COLUMN     "price" INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE "EventType" ADD COLUMN  IF NOT EXISTS    "currency" TEXT NOT NULL DEFAULT E'usd',
+ADD COLUMN   IF NOT EXISTS   "disableGuests" BOOLEAN NOT NULL DEFAULT false,
+ADD COLUMN   IF NOT EXISTS   "price" INTEGER NOT NULL DEFAULT 0;
 
 -- AlterTable
-ALTER TABLE "users" ADD COLUMN     "locale" TEXT;
+ALTER TABLE "users" ADD COLUMN   IF NOT EXISTS   "locale" TEXT;
 
 -- CreateTable
-CREATE TABLE "Payment" (
+CREATE TABLE IF NOT EXISTS "Payment" (
     "id" SERIAL NOT NULL,
     "uid" TEXT NOT NULL,
     "type" "PaymentType" NOT NULL,
@@ -41,13 +45,13 @@ CREATE TABLE "Payment" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Payment.uid_unique" ON "Payment"("uid");
+CREATE UNIQUE INDEX IF NOT EXISTS "Payment.uid_unique" ON "Payment"("uid");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Payment.externalId_unique" ON "Payment"("externalId");
+CREATE UNIQUE INDEX IF NOT EXISTS "Payment.externalId_unique" ON "Payment"("externalId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "EventType.userId_slug_unique" ON "EventType"("userId", "slug");
+CREATE UNIQUE INDEX IF NOT EXISTS "EventType.userId_slug_unique" ON "EventType"("userId", "slug");
 
 -- AddForeignKey
 ALTER TABLE "Payment" ADD FOREIGN KEY ("bookingId") REFERENCES "Booking"("id") ON DELETE CASCADE ON UPDATE CASCADE;

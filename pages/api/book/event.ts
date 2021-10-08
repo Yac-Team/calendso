@@ -141,6 +141,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     timeZone: true,
     credentials: true,
     bufferTime: true,
+    teamId: true,
   });
 
   const userData = Prisma.validator<Prisma.UserArgs>()({
@@ -291,9 +292,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res.status(500).json({ message: "Could not get Yac user credentials for " + users[0].name });
         return;
       }
+      if (!users[0].teamId) {
+        log.error(`Booking ${eventTypeId} failed`, "Error getting team associated with user");
+        res.status(500).json({ message: "Could not get Yac team associated for " + users[0].name });
+        return;
+      }
       const yacToken = (yacCredential.key as any).api_token;
-      console.log("STEP 1");
-      console.log({ yacCredential });
       const groupCreateRes = await fetch("https://api-v3.yacchat.com/api/v1/group/create", {
         method: "POST",
         headers: {
@@ -301,14 +305,29 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          createdBy: users[0].id,
+          teamId: users[0].teamId,
           name: req.body.topic,
-          bio: req.body.notes || "",
+          bio: req.body.notes || "This meeting was created with Yac Meet and has no notes.",
         }),
       });
+      console.log({ yacToken });
+      console.log(
+        JSON.stringify({
+          createdBy: users[0].id,
+          teamId: users[0].teamId,
+          name: req.body.topic,
+          bio: req.body.notes || "This meeting was created with Yac Meet and has no notes.",
+        })
+      );
       const { groupDetails = {}, ...restx } = await groupCreateRes.json();
       console.log({ groupDetails, restx });
       const { id: groupId } = groupDetails;
-
+      if (!groupId) {
+        log.error(`Booking ${eventTypeId} failed`, "Error getting groupId from Yac API");
+        res.status(500).json({ message: "Could not create a Yac meeting with " + users[0].name });
+        return;
+      }
       await fetch(`https://api-v3.yacchat.com/api/v2/groups/${groupId}/members`, {
         method: "POST",
         headers: {

@@ -292,3 +292,19 @@ Special thanks to these amazing projects which help power Cal.com:
 - [Day.js](https://day.js.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Prisma](https://prisma.io/)
+
+---
+
+# How to deploy migrations after making changes to prisma schema
+
+1. Make sure env variable `DATABASE_URL` points to a non-production database
+
+run: `npx prisma migrate dev --create-only`
+
+2. Switch env variable `DATABASE_URL` to point to prod db
+
+run: `npx prisma migrate deploy`
+
+3. Generate client again
+
+run: `npx prisma generate`
