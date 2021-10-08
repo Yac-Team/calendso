@@ -268,7 +268,7 @@ export default function Settings(props: InferGetServerSidePropsType<typeof getSe
                     </div>
                     <div className="ml-3 text-sm">
                       <label htmlFor="async-use-calendar" className="font-medium text-gray-700">
-                        Async meetings schedule a space in your calendar
+                        Require calendar events for async meetings
                       </label>
                     </div>
                   </div>

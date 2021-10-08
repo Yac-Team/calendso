@@ -158,13 +158,45 @@ export default function Home({ integrations }: InferGetServerSidePropsType<typeo
                       <h2 className="font-medium text-gray-900 font-cal">{integration.title}</h2>
                       <p className="text-sm text-gray-900">{integration.description}</p>
                     </div>
-                    <div className="w-2/12 pt-2 text-right">
-                      <button
-                        onClick={() => integrationHandler(integration.type)}
-                        className="font-medium text-neutral-900 hover:text-neutral-500">
-                        Add
-                      </button>
-                    </div>
+                    {integration.type === "google_calendar" ? (
+                      <div>
+                        <button
+                          onClick={() => integrationHandler(integration.type)}
+                          style={{
+                            fontFamily: "Roboto",
+                            backgroundColor: "#4285f4",
+                            borderRadius: 2,
+                            paddingRight: 8,
+                            alignItems: "center",
+                          }}
+                          className="flex justify-start py-[2px] px-[2px] min-w-[215px] font-medium text-neutral-900 active:bg-[#1669F2] hover:opacity-80">
+                          <div
+                            style={{
+                              width: 40,
+                              height: 40,
+                              borderRadius: 2,
+                              padding: 11,
+                              backgroundColor: "white",
+                              marginRight: 16,
+                            }}>
+                            <img
+                              width="18px"
+                              src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+                              alt="Google logo"
+                            />
+                          </div>
+                          Sign in with Google
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="w-2/12 pt-2 text-right">
+                        <button
+                          onClick={() => integrationHandler(integration.type)}
+                          className="font-medium text-neutral-900 hover:text-neutral-500">
+                          Add
+                        </button>
+                      </div>
+                    )}
                   </li>
                 );
               })}
@@ -322,7 +354,7 @@ export default function Home({ integrations }: InferGetServerSidePropsType<typeo
                   rel="noopener noreferrer">
                   https://appleid.apple.com/account/manage
                 </a>
-                . Your credentials will be stored and encrypted.
+                Your credentials will be stored and encrypted.
               </p>
             }
           />
