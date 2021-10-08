@@ -545,7 +545,7 @@ export default function Onboarding(props: InferGetServerSidePropsType<typeof get
   }
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-gray-100">
       <Head>
         <title>Yac Meet - Getting Started</title>
         <link rel="icon" href="/favicon.ico" />
@@ -560,10 +560,10 @@ export default function Onboarding(props: InferGetServerSidePropsType<typeof get
         <article className="relative">
           <section className="space-y-4 sm:mx-auto sm:w-full sm:max-w-md">
             <header>
-              <Text className="text-white" variant="largetitle">
+              <Text className="text-[#fff]" variant="largetitle">
                 {steps[currentStep].title}
               </Text>
-              <Text className="text-white" variant="subtitle">
+              <Text className="text-[#fff]" variant="subtitle">
                 {steps[currentStep].description}
               </Text>
             </header>
@@ -581,11 +581,11 @@ export default function Onboarding(props: InferGetServerSidePropsType<typeof get
                       key={`step-${index}`}
                       onClick={() => goToStep(index)}
                       className={classnames(
-                        "h-1 bg-white w-1/4",
+                        "h-1 bg-black w-1/4",
                         index < currentStep ? "cursor-pointer" : ""
                       )}></div>
                   ) : (
-                    <div key={`step-${index}`} className="w-1/4 h-1 bg-white bg-opacity-25"></div>
+                    <div key={`step-${index}`} className="w-1/4 h-1 bg-black bg-opacity-25"></div>
                   );
                 })}
               </section>
@@ -607,7 +607,7 @@ export default function Onboarding(props: InferGetServerSidePropsType<typeof get
             )}
           </section>
           <section className="max-w-xl py-6 mx-auto mt-8">
-            <div className="flex flex-row-reverse justify-between">
+            <div className="flex flex-row-reverse justify-between text-gray-800">
               <button disabled={isSubmitting} onClick={handleSkipStep}>
                 <Text variant="caption">Skip Step</Text>
               </button>
