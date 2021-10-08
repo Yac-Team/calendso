@@ -311,17 +311,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           bio: req.body.notes || "This meeting was created with Yac Meet and has no notes.",
         }),
       });
-      console.log({ yacToken });
-      console.log(
-        JSON.stringify({
-          createdBy: users[0].id,
-          teamId: users[0].teamId,
-          name: req.body.topic,
-          bio: req.body.notes || "This meeting was created with Yac Meet and has no notes.",
-        })
-      );
-      const { groupDetails = {}, ...restx } = await groupCreateRes.json();
-      console.log({ groupDetails, restx });
+      const { groupDetails = {} } = await groupCreateRes.json();
       const { id: groupId } = groupDetails;
       if (!groupId) {
         log.error(`Booking ${eventTypeId} failed`, "Error getting groupId from Yac API");
@@ -339,7 +329,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           resendInvite: true,
         }),
       });
-      console.log("STEP 2");
       const { inviteLink } = await (
         await fetch(`https://api-v3.yacchat.com/api/v2/groups/${groupId}/invite-link`, {
           method: "GET",
@@ -349,7 +338,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           },
         })
       ).json();
-      console.log({ inviteLink });
       evt.location = inviteLink;
     }
   } catch (error) {
