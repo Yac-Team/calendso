@@ -78,8 +78,11 @@ export default function Login({ csrfToken }) {
             <input name="csrfToken" type="hidden" defaultValue={csrfToken} hidden />
             <button
               type="submit"
-              className="flex justify-center w-full px-4 py-2 text-sm font-medium text-white border border-transparent rounded-sm shadow-sm bg-neutral-900 hover:bg-neutral-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
-              Sign in with Yac
+              style={{ alignItems: "center" }}
+              className="flex justify-between w-full px-1 py-1 text-sm font-medium text-white align-middle border border-transparent rounded-sm shadow-sm bg-neutral-900 hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
+              <img src="/yac-logo-3d.png" width="42px" alt="Yac logo" style={{ borderRadius: 2 }} />
+              <div className="flex justify-center w-full align-middle">Sign in with Yac</div>
+              <div style={{ width: 50 }}></div>
             </button>
           </form>
           {/* <form className="space-y-6" method="post" action="/api/auth/callback/credentials">
