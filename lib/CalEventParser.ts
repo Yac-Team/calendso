@@ -72,7 +72,7 @@ export default class CalEventParser {
 `
         : "") +
       `<strong>Invitee Time Zone:</strong><br />${this.calEvent.attendees[0].timeZone}<br />
-<strong>Additional notes:</strong><br />${this.getDescriptionText()}<br />` +
+<strong>Meeting context:</strong><br />${this.getDescriptionText()}<br />` +
       this.getChangeEventFooterHtml()
     );
   }

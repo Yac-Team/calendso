@@ -90,7 +90,7 @@ const BookingPage = (props) => {
           .join("\n\n");
       }
       if (!!notes && !!event.target.notes.value) {
-        notes += "\n\nAdditional notes:\n" + event.target.notes.value;
+        notes += "\n\nMeeting context:\n" + event.target.notes.value;
       } else {
         notes += event.target.notes.value;
       }
@@ -439,9 +439,10 @@ const BookingPage = (props) => {
                   )}
                   <div className="mb-4">
                     <label htmlFor="notes" className="block mb-1 text-sm font-medium text-gray-700 ">
-                      Additional notes
+                      Meeting context
                     </label>
                     <textarea
+                      required={props.eventType.slug === "async"}
                       name="notes"
                       id="notes"
                       rows={3}
