@@ -121,7 +121,8 @@ export default function Type(props: InferGetServerSidePropsType<typeof getServer
                       </div>
                     </div>
                     {props.cancellationAllowed && (
-                      <div className="mt-5 sm:mt-6 text-centerspace-x-2">
+                      <div className="flex gap-2 mt-5 sm:mt-6 text-centerspace-x-2">
+                        <Button onClick={() => router.push("/reschedule/" + uid)}>Reschedule</Button>
                         <Button
                           color="secondary"
                           data-testid="cancel"
@@ -129,7 +130,6 @@ export default function Type(props: InferGetServerSidePropsType<typeof getServer
                           loading={loading}>
                           Cancel
                         </Button>
-                        <Button onClick={() => router.push("/reschedule/" + uid)}>Reschedule</Button>
                       </div>
                     )}
                   </>
