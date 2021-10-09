@@ -190,11 +190,9 @@ export default function Home({ integrations }: InferGetServerSidePropsType<typeo
                       </div>
                     ) : (
                       <div className="w-2/12 pt-2 text-right">
-                        <button
-                          onClick={() => integrationHandler(integration.type)}
-                          className="font-medium text-neutral-900 hover:text-neutral-500">
-                          Add
-                        </button>
+                        <Button color="secondary" onClick={() => integrationHandler(integration.type)}>
+                          Connect
+                        </Button>
                       </div>
                     )}
                   </li>
