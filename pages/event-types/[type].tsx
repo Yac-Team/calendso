@@ -171,7 +171,7 @@ const EventTypePage = (props: InferGetServerSidePropsType<typeof getServerSidePr
     const payload: EventTypeInput = {
       id: eventType.id,
       title: enteredTitle,
-      slug: asStringOrThrow(formData.slug),
+      slug: asStringOrThrow(formData.slug || eventType.slug),
       description: asStringOrThrow(formData.description),
       length: asNumberOrThrow(formData.length),
       requiresConfirmation: formData.requiresConfirmation === "on",
