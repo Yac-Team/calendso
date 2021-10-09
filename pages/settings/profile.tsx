@@ -108,7 +108,7 @@ export default function Settings(props: InferGetServerSidePropsType<typeof getSe
                   </div>
                   <div className="w-full sm:w-1/2 sm:ml-2">
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                      Full name
+                      Full Name
                     </label>
                     <input
                       disabled
@@ -272,7 +272,7 @@ export default function Settings(props: InferGetServerSidePropsType<typeof getSe
                     </div>
                     <div className="ml-3 text-sm">
                       <label htmlFor="async-use-calendar" className="font-medium text-gray-700">
-                        Require calendar events for async meetings
+                        Require Calendar Events for Async Meetings
                       </label>
                     </div>
                   </div>

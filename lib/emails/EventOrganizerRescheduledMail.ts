@@ -33,7 +33,7 @@ export default class EventOrganizerRescheduledMail extends EventOrganizerMail {
       `<strong>Invitee Time Zone:</strong><br />
         ${this.calEvent.attendees[0].timeZone}<br />
         <br />
-        <strong>Meeting context:</strong><br />
+        <strong>Meeting Context:</strong><br />
         ${this.calEvent.description}
       ` +
       this.getAdditionalFooter() +

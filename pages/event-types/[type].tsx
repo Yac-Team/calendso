@@ -259,7 +259,7 @@ const EventTypePage = (props: InferGetServerSidePropsType<typeof getServerSidePr
         return (
           <div>
             <label htmlFor="address" className="block text-sm font-medium text-gray-700">
-              Set an address or place
+              Set an Address or Place
             </label>
             <div className="mt-1">
               <input
@@ -635,7 +635,7 @@ const EventTypePage = (props: InferGetServerSidePropsType<typeof getServerSidePr
                                 <label
                                   htmlFor="eventName"
                                   className="flex mt-2 text-sm font-medium text-neutral-700">
-                                  Event name
+                                  Event Name
                                 </label>
                               </div>
                               <div className="w-full">
@@ -657,7 +657,7 @@ const EventTypePage = (props: InferGetServerSidePropsType<typeof getServerSidePr
                                 <label
                                   htmlFor="additionalFields"
                                   className="flex mt-2 text-sm font-medium text-neutral-700">
-                                  Additional inputs
+                                  Additional Inputs
                                 </label>
                               </div>
                               <div className="w-full">
@@ -746,7 +746,7 @@ const EventTypePage = (props: InferGetServerSidePropsType<typeof getServerSidePr
                                 <label
                                   htmlFor="inviteesCanSchedule"
                                   className="flex mt-2 text-sm font-medium text-neutral-700">
-                                  Invitees can schedule
+                                  Invitees can Schedule
                                 </label>
                               </div>
                               <div className="w-full">
@@ -1078,7 +1078,7 @@ const EventTypePage = (props: InferGetServerSidePropsType<typeof getServerSidePr
                 <form onSubmit={updateCustom}>
                   <div className="mb-2">
                     <label htmlFor="type" className="block text-sm font-medium text-gray-700">
-                      Input type
+                      Input Type
                     </label>
                     <Select
                       name="type"
@@ -1131,7 +1131,7 @@ const EventTypePage = (props: InferGetServerSidePropsType<typeof getServerSidePr
                       defaultChecked={selectedCustomInput?.required ?? true}
                     />
                     <label htmlFor="required" className="block text-sm font-medium text-gray-700">
-                      Is required
+                      Is Required
                     </label>
                   </div>
                   <input type="hidden" name="id" id="id" value={selectedCustomInput?.id} />

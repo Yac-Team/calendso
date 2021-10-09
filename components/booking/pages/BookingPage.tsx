@@ -90,7 +90,7 @@ const BookingPage = (props) => {
           .join("\n\n");
       }
       if (!!notes && !!event.target.notes.value) {
-        notes += "\n\nMeeting context:\n" + event.target.notes.value;
+        notes += "\n\nMeeting Context:\n" + event.target.notes.value;
       } else {
         notes += event.target.notes.value;
       }
@@ -250,7 +250,7 @@ const BookingPage = (props) => {
                 <form onSubmit={bookingHandler}>
                   <div className={"mb-4 " + (props.eventType.slug !== "async" ? "hidden" : "")}>
                     <label htmlFor="topic" className="block text-sm font-medium text-gray-700 ">
-                      Meeting topic
+                      Meeting Topic
                     </label>
                     <div className="mt-1">
                       <input
@@ -266,7 +266,7 @@ const BookingPage = (props) => {
                   </div>
                   <div className="mb-4">
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 ">
-                      Your name
+                      Your Name
                     </label>
                     <div className="mt-1">
                       <input
@@ -282,7 +282,7 @@ const BookingPage = (props) => {
                   </div>
                   <div className="mb-4">
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 ">
-                      Email address
+                      Email Address
                     </label>
                     <div className="mt-1">
                       <input
@@ -439,7 +439,7 @@ const BookingPage = (props) => {
                   )}
                   <div className="mb-4">
                     <label htmlFor="notes" className="block mb-1 text-sm font-medium text-gray-700 ">
-                      Meeting context
+                      Meeting Context
                     </label>
                     <textarea
                       required={props.eventType.slug === "async"}

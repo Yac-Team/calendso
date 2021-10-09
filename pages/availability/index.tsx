@@ -145,7 +145,7 @@ export default function Availability() {
                 showToast("The start and end times for your day have been changed successfully.", "success");
               })}>
               <div className="flex mb-4">
-                <label className="w-1/4 pt-2 block text-sm font-medium text-gray-700">Start time</label>
+                <label className="w-1/4 pt-2 block text-sm font-medium text-gray-700">Start Time</label>
                 <div>
                   <label htmlFor="startHours" className="sr-only">
                     Hours
@@ -174,7 +174,7 @@ export default function Availability() {
                 </div>
               </div>
               <div className="flex mb-4">
-                <label className="w-1/4 pt-2 block text-sm font-medium text-gray-700">End time</label>
+                <label className="w-1/4 pt-2 block text-sm font-medium text-gray-700">End Time</label>
                 <div>
                   <label htmlFor="endHours" className="sr-only">
                     Hours

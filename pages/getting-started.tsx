@@ -366,7 +366,7 @@ export default function Onboarding(props: InferGetServerSidePropsType<typeof get
           <section className="space-y-4">
             <fieldset>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                Full name
+                Full Name
               </label>
               <input
                 ref={nameRef}
@@ -480,7 +480,7 @@ export default function Onboarding(props: InferGetServerSidePropsType<typeof get
           <section className="space-y-4">
             <fieldset>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                Full name
+                Full Name
               </label>
               <input
                 ref={nameRef}
