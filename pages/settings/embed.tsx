@@ -56,15 +56,19 @@ export default function Embed(props: InferGetServerSidePropsType<typeof getServe
               </div>
             </div>
           </div>
-          <div className="my-6">
-            <h2 className="text-lg font-medium leading-6 text-gray-900 font-cal">Yac Meet API</h2>
-            <p className="mt-1 text-sm text-gray-500">
-              Leverage our API for full control and customizability.
-            </p>
-          </div>
-          <a href="https://developer.cal.com/api" className="btn btn-primary">
-            Browse our API documentation
-          </a>
+          {Math.random() > 1 && (
+            <>
+              <div className="my-6">
+                <h2 className="text-lg font-medium leading-6 text-gray-900 font-cal">Yac Meet API</h2>
+                <p className="mt-1 text-sm text-gray-500">
+                  Leverage our API for full control and customizability.
+                </p>
+              </div>
+              <a href="https://developer.cal.com/api" className="btn btn-primary">
+                Browse our API documentation
+              </a>
+            </>
+          )}
         </div>
       </SettingsShell>
     </Shell>
