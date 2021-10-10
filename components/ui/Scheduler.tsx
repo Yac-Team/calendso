@@ -120,7 +120,7 @@ export const Scheduler = ({
             ))}
           </ul>
           <button type="button" onClick={addNewSchedule} className="mt-2 btn-white btn-sm">
-            Add another
+            {!openingHours.length ? "Set availability times" : "Add another"}
           </button>
         </div>
       </div>
