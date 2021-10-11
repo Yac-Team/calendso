@@ -30,7 +30,9 @@ export default class VideoEventOrganizerMail extends EventOrganizerMail {
     return `
 <strong>Video call provider:</strong> ${getIntegrationName(this.videoCallData)}<br />
 <strong>Meeting ID:</strong> ${getFormattedMeetingId(this.videoCallData)}<br />
-<strong>Meeting Password:</strong> ${this.videoCallData.password}<br />
+<strong>Meeting Password:</strong> ${
+      this.videoCallData.password || "This meeting doesn’t require a password."
+    }<br />
 <strong>Meeting URL:</strong> <a href="${this.videoCallData.url}">${this.videoCallData.url}</a><br />
     `;
   }
