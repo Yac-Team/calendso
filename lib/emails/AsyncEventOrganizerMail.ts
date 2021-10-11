@@ -1,6 +1,6 @@
 import EventMail from "./EventMail";
 
-export default class EventOrganizerMail extends EventMail {
+export default class AsyncEventOrganizerMail extends EventMail {
   protected getBodyHeader(): string {
     return "A new async meeting has been scheduled.";
   }

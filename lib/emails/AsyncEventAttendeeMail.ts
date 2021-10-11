@@ -1,6 +1,6 @@
 import EventMail from "./EventMail";
 
-export default class EventAttendeeMail extends EventMail {
+export default class AsyncEventAttendeeMail extends EventMail {
   /**
    * Returns the email text as HTML representation.
    *

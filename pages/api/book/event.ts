@@ -12,6 +12,8 @@ import { v5 as uuidv5 } from "uuid";
 import { handlePayment } from "@ee/lib/stripe/server";
 
 import { CalendarEvent, getBusyCalendarTimes } from "@lib/calendarClient";
+import AsyncEventAttendeeMail from "@lib/emails/AsyncEventAttendeeMail";
+import AsyncEventOrganizerMail from "@lib/emails/AsyncEventOrganizerMail";
 import EventOrganizerRequestMail from "@lib/emails/EventOrganizerRequestMail";
 import { getEventName } from "@lib/event";
 import EventManager, { CreateUpdateResult, EventResult, PartialReference } from "@lib/events/EventManager";
@@ -512,6 +514,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       log.error(`Booking ${user.username} failed`, error, results);
     }
+  }
+
+  if (!evt.startTime && !evt.endTime && eventType.slug === "async") {
+    await new AsyncEventOrganizerMail(evt, uid).sendEmail();
+    await new AsyncEventAttendeeMail(evt, uid).sendEmail();
   }
 
   if (eventType.requiresConfirmation && !rescheduleUid) {
