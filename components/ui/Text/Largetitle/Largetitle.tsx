@@ -4,7 +4,7 @@ import React from "react";
 import { TextProps } from "../Text";
 
 const Largetitle: React.FunctionComponent<TextProps> = (props: TextProps) => {
-  const classes = classnames("text-3xl font-extrabold text-gray-900 ", props?.className);
+  const classes = classnames("font-cal tracking-wider text-3xl text-gray-900  mb-2", props?.className);
 
   return <p className={classes}>{props?.text || props.children}</p>;
 };

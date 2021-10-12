@@ -6,6 +6,9 @@ module.exports = {
     "./ee/components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    fontFamily: {
+      sans: ["Roboto", "sans-serif"],
+    },
     extend: {
       colors: {
         black: "#F3C93C",
@@ -106,7 +109,6 @@ module.exports = {
         },
       },
       fontFamily: {
-        inter: ["Inter", "sans-serif"],
         cal: ["Cal Sans", "sans-serif"],
       },
       maxHeight: (theme) => ({

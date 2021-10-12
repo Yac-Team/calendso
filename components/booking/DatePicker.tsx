@@ -6,6 +6,7 @@ import utc from "dayjs/plugin/utc";
 import { useEffect, useState } from "react";
 
 import classNames from "@lib/classNames";
+import { useLocale } from "@lib/hooks/useLocale";
 import getSlots from "@lib/slots";
 
 dayjs.extend(dayjsBusinessDays);
@@ -13,6 +14,7 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 
 const DatePicker = ({
+  localeProp,
   weekStart,
   onDatePicked,
   workingHours,
@@ -26,6 +28,7 @@ const DatePicker = ({
   periodCountCalendarDays,
   minimumBookingNotice,
 }) => {
+  const { t } = useLocale({ localeProp: localeProp });
   const [days, setDays] = useState<({ disabled: boolean; date: number } | null)[]>([]);
 
   const [selectedMonth, setSelectedMonth] = useState<number | null>(
@@ -133,8 +136,8 @@ const DatePicker = ({
       }>
       <div className="flex mb-4 text-xl font-light text-gray-600">
         <span className="w-1/2 text-gray-600 ">
-          <strong className="text-gray-900 ">{inviteeDate().format("MMMM")}</strong>
-          <span className="text-gray-500"> {inviteeDate().format("YYYY")}</span>
+          <strong className="text-gray-900 ">{t(inviteeDate().format("MMMM").toLowerCase())}</strong>{" "}
+          <span className="text-gray-500">{inviteeDate().format("YYYY")}</span>
         </span>
         <div className="w-1/2 text-right text-gray-600 ">
           <button
@@ -148,12 +151,12 @@ const DatePicker = ({
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-7 gap-4 text-center border-t border-b sm:border-0">
-        {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+      <div className="grid grid-cols-7 gap-4 text-center border-t border-b  sm:border-0">
+        {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
           .sort((a, b) => (weekStart.startsWith(a) ? -1 : weekStart.startsWith(b) ? 1 : 0))
           .map((weekDay) => (
             <div key={weekDay} className="my-4 text-xs tracking-widest text-gray-500 uppercase">
-              {weekDay}
+              {t(weekDay.toLowerCase()).substring(0, 3)}
             </div>
           ))}
       </div>

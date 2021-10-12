@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { getSession } from "@lib/auth";
+import { ONBOARDING_NEXT_REDIRECT, shouldShowOnboarding } from "@lib/getting-started";
 import AddAppleIntegration, {
   ADD_APPLE_INTEGRATION_FORM_TITLE,
 } from "@lib/integrations/Apple/components/AddAppleIntegration";
@@ -514,14 +515,23 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
           key: true,
         },
       },
+      completedOnboarding: true,
+      createdDate: true,
     },
   });
 
-  if (!user) return { redirect: { permanent: false, destination: "/auth/login" } };
+  if (!user)
+    return {
+      redirect: { permanent: false, destination: "/auth/login" },
+    };
 
-  const { credentials } = user;
+  if (
+    shouldShowOnboarding({ completedOnboarding: user.completedOnboarding, createdDate: user.createdDate })
+  ) {
+    return ONBOARDING_NEXT_REDIRECT;
+  }
 
-  const integrations = getIntegrations(credentials);
+  const integrations = getIntegrations(user.credentials);
 
   return {
     props: { session, integrations },

@@ -25,12 +25,22 @@ export default class VideoEventAttendeeMail extends EventAttendeeMail {
    * @protected
    */
   protected getAdditionalBody(): string {
-    return `
+    const meetingPassword = this.videoCallData.password;
+    const meetingId = getFormattedMeetingId(this.videoCallData);
+
+    if (meetingId && meetingPassword) {
+      return `
       <strong>Video call provider:</strong> ${getIntegrationName(this.videoCallData)}<br />
       <strong>Meeting ID:</strong> ${getFormattedMeetingId(this.videoCallData)}<br />
       <strong>Meeting Password:</strong> ${
         this.videoCallData.password || "This meeting doesn’t require a password."
       }<br />
+      <strong>Meeting URL:</strong> <a href="${this.videoCallData.url}">${this.videoCallData.url}</a><br />
+    `;
+    }
+
+    return `
+      <strong>Video call provider:</strong> ${getIntegrationName(this.videoCallData)}<br />
       <strong>Meeting URL:</strong> <a href="${this.videoCallData.url}">${this.videoCallData.url}</a><br />
     `;
   }

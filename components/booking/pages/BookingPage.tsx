@@ -20,6 +20,7 @@ import { createPaymentLink } from "@ee/lib/stripe/client";
 
 import { asStringOrNull } from "@lib/asStringOrNull";
 import { timeZone } from "@lib/clock";
+import { useLocale } from "@lib/hooks/useLocale";
 import useTheme from "@lib/hooks/useTheme";
 import { LocationType } from "@lib/location";
 import createBooking from "@lib/mutations/bookings/create-booking";
@@ -29,10 +30,13 @@ import { collectPageParameters, telemetryEventTypes, useTelemetry } from "@lib/t
 import AvatarGroup from "@components/ui/AvatarGroup";
 import { Button } from "@components/ui/Button";
 
-// import { BookPageProps } from "../../../pages/[user]/book";
-// import { TeamBookingPageProps } from "../../../pages/team/[slug]/book";
+import { BookPageProps } from "../../../pages/[user]/book";
+import { TeamBookingPageProps } from "../../../pages/team/[slug]/book";
 
-const BookingPage = (props) => {
+type BookingPageProps = BookPageProps | TeamBookingPageProps;
+
+const BookingPage = (props: BookingPageProps) => {
+  const { t } = useLocale({ localeProp: props.localeProp });
   const router = useRouter();
   const { rescheduleUid } = router.query;
   const { isReady } = useTheme(props.profile.theme);
@@ -64,10 +68,11 @@ const BookingPage = (props) => {
 
   // TODO: Move to translations
   const locationLabels = {
-    [LocationType.InPerson]: "Link or In-person meeting",
-    [LocationType.Phone]: "Phone call",
+    [LocationType.InPerson]: t("in_person_meeting"),
+    [LocationType.Phone]: t("phone_call"),
     [LocationType.GoogleMeet]: "Google Meet",
     [LocationType.Zoom]: "Zoom Video",
+    [LocationType.Daily]: "Daily.co Video",
   };
 
   const _bookingHandler = (event) => {
@@ -81,7 +86,7 @@ const BookingPage = (props) => {
             const data = event.target["custom_" + input.id];
             if (data) {
               if (input.type === EventTypeCustomInputType.BOOL) {
-                return input.label + "\n" + (data.checked ? "Yes" : "No");
+                return input.label + "\n" + (data.checked ? t("yes") : t("no"));
               } else {
                 return input.label + "\n" + data.value;
               }
@@ -90,7 +95,7 @@ const BookingPage = (props) => {
           .join("\n\n");
       }
       if (!!notes && !!event.target.notes.value) {
-        notes += "\n\nMeeting Context:\n" + event.target.notes.value;
+        notes += `\n\n${t("additional_notes")}:\n` + event.target.notes.value;
       } else {
         notes += event.target.notes.value;
       }
@@ -190,8 +195,16 @@ const BookingPage = (props) => {
     <div>
       <Head>
         <title>
-          {rescheduleUid ? "Reschedule" : "Confirm"} your {props.eventType.title} with {props.profile.name} |
-          Yac Meet
+          {rescheduleUid
+            ? t("booking_reschedule_confirmation", {
+                eventTypeTitle: props.eventType.title,
+                profileName: props.profile.name,
+              })
+            : t("booking_confirmation", {
+                eventTypeTitle: props.eventType.title,
+                profileName: props.profile.name,
+              })}{" "}
+          | Yac Meet
         </title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -217,7 +230,7 @@ const BookingPage = (props) => {
                 {!(!props.profile.asyncUseCalendar && props.eventType.slug === "async") && (
                   <p className="mb-2 text-gray-500">
                     <ClockIcon className="inline-block w-4 h-4 mr-1 -mt-1" />
-                    {props.eventType.length} minutes
+                    {props.eventType.length} {t("minutes")}
                   </p>
                 )}
                 {props.eventType.price > 0 && (
@@ -266,7 +279,7 @@ const BookingPage = (props) => {
                   </div>
                   <div className="mb-4">
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 ">
-                      Your Name
+                      {t("your_name")}
                     </label>
                     <div className="mt-1">
                       <input
@@ -282,7 +295,7 @@ const BookingPage = (props) => {
                   </div>
                   <div className="mb-4">
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 ">
-                      Email Address
+                      {t("email_address")}
                     </label>
                     <div className="mt-1">
                       <input
@@ -299,7 +312,7 @@ const BookingPage = (props) => {
                   </div>
                   {locations.length > 1 && (
                     <div className="mb-4">
-                      <span className="block text-sm font-medium text-gray-700 ">Location</span>
+                      <span className="block text-sm font-medium text-gray-700 ">{t("location")}</span>
                       {locations.map((location) => (
                         <label key={location.type} className="block">
                           <input
@@ -319,12 +332,12 @@ const BookingPage = (props) => {
                   {selectedLocation === LocationType.Phone && (
                     <div className="mb-4">
                       <label htmlFor="phone" className="block text-sm font-medium text-gray-700 ">
-                        Phone Number
+                        {t("phone_number")}
                       </label>
                       <div className="mt-1">
                         <PhoneInput
                           name="phone"
-                          placeholder="Enter phone number"
+                          placeholder={t("enter_phone_number")}
                           id="phone"
                           required
                           className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black sm:text-sm"
@@ -403,7 +416,7 @@ const BookingPage = (props) => {
                           onClick={toggleGuestEmailInput}
                           htmlFor="guests"
                           className="block mb-1 text-sm font-medium text-blue-500 hover:cursor-pointer">
-                          + Additional Guests
+                          {t("additional_guests")}
                         </label>
                       )}
                       {guestToggle && (
@@ -439,7 +452,7 @@ const BookingPage = (props) => {
                   )}
                   <div className="mb-4">
                     <label htmlFor="notes" className="block mb-1 text-sm font-medium text-gray-700 ">
-                      Meeting Context
+                      {t("additional_notes")}
                     </label>
                     <textarea
                       required={props.eventType.slug === "async"}
@@ -447,17 +460,17 @@ const BookingPage = (props) => {
                       id="notes"
                       rows={3}
                       className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black sm:text-sm"
-                      placeholder="Please share anything that will help prepare for our meeting."
+                      placeholder={t("share_additional_notes")}
                       defaultValue={props.booking ? props.booking.description : ""}
                     />
                   </div>
                   <div className="flex items-start space-x-2">
                     {/* TODO: add styling props to <Button variant="" color="" /> and get rid of btn-primary */}
                     <Button type="submit" loading={loading}>
-                      {rescheduleUid ? "Reschedule" : "Confirm"}
+                      {rescheduleUid ? t("reschedule") : t("confirm")}
                     </Button>
                     <Button color="secondary" type="button" onClick={() => router.back()}>
-                      Cancel
+                      {t("cancel")}
                     </Button>
                   </div>
                 </form>
@@ -469,7 +482,7 @@ const BookingPage = (props) => {
                       </div>
                       <div className="ml-3">
                         <p className="text-sm text-yellow-700">
-                          Could not {rescheduleUid ? "reschedule" : "book"} the meeting.
+                          {rescheduleUid ? t("reschedule_fail") : t("booking_fail")}
                         </p>
                       </div>
                     </div>

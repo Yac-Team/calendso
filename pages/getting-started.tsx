@@ -137,21 +137,59 @@ export default function Onboarding(props: InferGetServerSidePropsType<typeof get
     }
 
     return (
-      <li onClick={() => handleAddIntegration(integration.type)} key={integration.type} className="flex py-4">
-        <div className="w-1/12 pt-2 mr-4">
+      <li
+        onClick={() => handleAddIntegration(integration.type)}
+        key={integration.type}
+        className="flex items-center px-4 py-3">
+        <div className="w-1/12 mr-4">
           <img className="w-8 h-8 mr-2" src={integration.imageSrc} alt={integration.title} />
         </div>
         <div className="w-10/12">
-          <Text className="font-medium text-gray-800">{integration.title}</Text>
+          <Text className="text-sm font-medium text-gray-900">{integration.title}</Text>
           <Text className="text-gray-400" variant="subtitle">
             {integration.description}
           </Text>
         </div>
-        <div className="w-2/12 pt-2 text-right">
-          <Button color="secondary" onClick={() => handleAddIntegration(integration.type)}>
-            Connect
-          </Button>
-        </div>
+        {integration.type === "google_calendar" ? (
+          <div>
+            <button
+              onClick={() => integrationHandler(integration.type)}
+              style={{
+                fontFamily: "Roboto",
+                backgroundColor: "#4285f4",
+                borderRadius: 2,
+                paddingRight: 8,
+                alignItems: "center",
+              }}
+              className="flex justify-start py-[2px] px-[2px] min-w-[215px] font-medium text-neutral-900 active:bg-[#1669F2] hover:opacity-80">
+              <div
+                style={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: 2,
+                  padding: 11,
+                  backgroundColor: "white",
+                  marginRight: 16,
+                }}>
+                <img
+                  width="18px"
+                  src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+                  alt="Google logo"
+                />
+              </div>
+              Sign in with Google
+            </button>
+          </div>
+        ) : (
+          <div className="w-2/12 text-right">
+            <Button
+              className="btn-sm"
+              color="secondary"
+              onClick={() => handleAddIntegration(integration.type)}>
+              Connect
+            </Button>
+          </div>
+        )}
       </li>
     );
   };
@@ -362,8 +400,8 @@ export default function Onboarding(props: InferGetServerSidePropsType<typeof get
       description:
         "Tell us what to call you and let us know what timezone you’re in. You’ll be able to edit this later.",
       Component: (
-        <form className="sm:mx-auto sm:w-full sm:max-w-md">
-          <section className="space-y-4">
+        <form className="sm:mx-auto sm:w-full">
+          <section className="space-y-8">
             <fieldset>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700">
                 Full Name
@@ -426,7 +464,7 @@ export default function Onboarding(props: InferGetServerSidePropsType<typeof get
       description:
         "Connect your calendar to automatically check for busy times and new events as they’re scheduled.",
       Component: (
-        <ul className="divide-y divide-gray-200 sm:mx-auto sm:w-full sm:max-w-md">
+        <ul className="border border-gray-200 divide-y divide-gray-200 rounded-sm sm:mx-auto sm:w-full">
           {props.integrations.map((integration) => {
             return <IntegrationGridListItem key={integration.type} integration={integration} />;
           })}
@@ -460,7 +498,7 @@ export default function Onboarding(props: InferGetServerSidePropsType<typeof get
               }}
             />
           </section>
-          <footer className="flex flex-col py-6 space-y-6 sm:mx-auto sm:w-full sm:max-w-md">
+          <footer className="flex flex-col py-6 space-y-6 sm:mx-auto sm:w-full">
             <Button className="justify-center" EndIcon={ArrowRightIcon} type="submit" form={SCHEDULE_FORM_ID}>
               Continue
             </Button>
@@ -476,7 +514,7 @@ export default function Onboarding(props: InferGetServerSidePropsType<typeof get
       description:
         "Last thing, a brief description about you and a photo really help you get bookings and let people know who they’re meeting with.",
       Component: (
-        <form className="sm:mx-auto sm:w-full sm:max-w-md" id="ONBOARDING_STEP_4">
+        <form className="sm:mx-auto sm:w-full" id="ONBOARDING_STEP_4">
           <section className="space-y-4">
             <fieldset>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700">
@@ -507,7 +545,7 @@ export default function Onboarding(props: InferGetServerSidePropsType<typeof get
                 className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-sm shadow-sm focus:outline-none focus:ring-neutral-500 focus:border-neutral-500 sm:text-sm"
                 defaultValue={props.user.bio}
               />
-              <Text variant="caption">
+              <Text variant="caption" className="mt-2">
                 A few sentences about yourself. This will appear on your personal url page.
               </Text>
             </fieldset>
@@ -558,7 +596,7 @@ export default function Onboarding(props: InferGetServerSidePropsType<typeof get
       )}
       <div className="px-4 py-24 mx-auto">
         <article className="relative">
-          <section className="space-y-4 sm:mx-auto sm:w-full sm:max-w-md">
+          <section className="space-y-4 sm:mx-auto sm:w-full sm:max-w-lg">
             <header>
               <Text className="text-[#fff]" variant="largetitle">
                 {steps[currentStep].title}
@@ -567,7 +605,7 @@ export default function Onboarding(props: InferGetServerSidePropsType<typeof get
                 {steps[currentStep].description}
               </Text>
             </header>
-            <section className="space-y-2">
+            <section className="pt-4 space-y-2">
               <Text variant="footnote">
                 Step {currentStep + 1} of {steps.length}
               </Text>
@@ -591,11 +629,11 @@ export default function Onboarding(props: InferGetServerSidePropsType<typeof get
               </section>
             </section>
           </section>
-          <section className="max-w-xl p-10 py-6 mx-auto mt-10 bg-white rounded-sm">
+          <section className="max-w-xl p-10 mx-auto mt-10 bg-white rounded-sm">
             {steps[currentStep].Component}
 
             {!steps[currentStep].hideConfirm && (
-              <footer className="flex flex-col py-6 mt-8 space-y-6 sm:mx-auto sm:w-full sm:max-w-md">
+              <footer className="flex flex-col mt-8 space-y-6 sm:mx-auto sm:w-full">
                 <Button
                   className="justify-center"
                   disabled={isSubmitting}
@@ -606,7 +644,7 @@ export default function Onboarding(props: InferGetServerSidePropsType<typeof get
               </footer>
             )}
           </section>
-          <section className="max-w-xl py-6 mx-auto mt-8">
+          <section className="max-w-xl py-8 mx-auto">
             <div className="flex flex-row-reverse justify-between text-gray-800">
               <button disabled={isSubmitting} onClick={handleSkipStep}>
                 <Text variant="caption">Skip Step</Text>

@@ -3,9 +3,12 @@ import { PlusIcon } from "@heroicons/react/solid";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import type { Session } from "next-auth";
 import { useSession } from "next-auth/client";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useEffect, useRef, useState } from "react";
 
 import { getSession } from "@lib/auth";
+import { getOrSetUserLocaleFromHeaders } from "@lib/core/i18n/i18n.utils";
+import { useLocale } from "@lib/hooks/useLocale";
 import { Member } from "@lib/member";
 import { Team } from "@lib/team";
 
@@ -18,9 +21,6 @@ import TeamListItem from "@components/team/TeamListItem";
 import Button from "@components/ui/Button";
 
 export default function Teams(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  if (Math.random() > 1) {
-    console.log(props);
-  }
   const noop = () => undefined;
   const [, loading] = useSession();
   const [teams, setTeams] = useState([]);
@@ -29,6 +29,7 @@ export default function Teams(props: InferGetServerSidePropsType<typeof getServe
   const [editTeamEnabled, setEditTeamEnabled] = useState(false);
   const [teamToEdit, setTeamToEdit] = useState<Team | null>();
   const nameRef = useRef<HTMLInputElement>() as React.MutableRefObject<HTMLInputElement>;
+  const { locale } = useLocale({ localeProp: props.localeProp });
 
   const handleErrors = async (resp: Response) => {
     if (!resp.ok) {
@@ -113,7 +114,11 @@ export default function Teams(props: InferGetServerSidePropsType<typeof getServe
               </div>
               <div>
                 {!!teams.length && (
-                  <TeamList teams={teams} onChange={loadData} onEditTeam={editTeam}></TeamList>
+                  <TeamList
+                    localeProp={locale}
+                    teams={teams}
+                    onChange={loadData}
+                    onEditTeam={editTeam}></TeamList>
                 )}
 
                 {!!invites.length && (
@@ -122,6 +127,7 @@ export default function Teams(props: InferGetServerSidePropsType<typeof getServe
                     <ul className="px-4 mt-4 mb-2 bg-white border divide-y divide-gray-200 rounded">
                       {invites.map((team: Team) => (
                         <TeamListItem
+                          localeProp={locale}
                           onChange={loadData}
                           key={team.id}
                           team={team}
@@ -134,7 +140,7 @@ export default function Teams(props: InferGetServerSidePropsType<typeof getServe
             </div>
           </div>
         )}
-        {!!editTeamEnabled && <EditTeam team={teamToEdit} onCloseEdit={onCloseEdit} />}
+        {!!editTeamEnabled && <EditTeam localeProp={locale} team={teamToEdit} onCloseEdit={onCloseEdit} />}
         {showCreateTeamModal && (
           <div
             className="fixed inset-0 z-50 overflow-y-auto"
@@ -204,11 +210,16 @@ export default function Teams(props: InferGetServerSidePropsType<typeof getServe
 export const getServerSideProps: GetServerSideProps<{ session: Session | null }> = async (context) => {
   return { notFound: true };
   const session = await getSession(context);
+  const locale = await getOrSetUserLocaleFromHeaders(context.req);
   if (!session) {
     return { redirect: { permanent: false, destination: "/auth/login" } };
   }
 
   return {
-    props: { session },
+    props: {
+      session,
+      localeProp: locale,
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
   };
 };

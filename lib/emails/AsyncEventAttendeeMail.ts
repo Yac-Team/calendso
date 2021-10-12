@@ -66,7 +66,7 @@ export default class AsyncEventAttendeeMail extends EventMail {
         <td>${this.getLocation()}</td>
       </tr>
       <tr>
-        <td>Notes</td>
+        <td>Meeting Context</td>
         <td>${this.calEvent.description}</td>
       </tr>
     </table>

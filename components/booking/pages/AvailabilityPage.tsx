@@ -5,11 +5,14 @@ import dayjs, { Dayjs } from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import utc from "dayjs/plugin/utc";
 import { useRouter } from "next/router";
+import { AvailabilityPageProps } from "pages/[user]/[type]";
+import { AvailabilityTeamPageProps } from "pages/team/[slug]/[type]";
 import { useEffect, useMemo, useState } from "react";
 import { FormattedNumber, IntlProvider } from "react-intl";
 
 import { asStringOrNull } from "@lib/asStringOrNull";
 import { timeZone } from "@lib/clock";
+import { useLocale } from "@lib/hooks/useLocale";
 import useTheme from "@lib/hooks/useTheme";
 import { isBrandingHidden } from "@lib/isBrandingHidden";
 import { collectPageParameters, telemetryEventTypes, useTelemetry } from "@lib/telemetry";
@@ -24,10 +27,14 @@ import PoweredByCal from "@components/ui/PoweredByCal";
 dayjs.extend(utc);
 dayjs.extend(customParseFormat);
 
-const AvailabilityPage = ({ profile, eventType, workingHours }) => {
+type Props = AvailabilityTeamPageProps | AvailabilityPageProps;
+
+function AvailabilityPage(props: Props) {
+  const { profile, eventType, workingHours, localeProp } = props;
   const router = useRouter();
   const { rescheduleUid } = router.query;
   const { isReady } = useTheme(profile.theme);
+  const { t, locale } = useLocale({ localeProp });
 
   const selectedDate = useMemo(() => {
     const dateString = asStringOrNull(router.query.date);
@@ -83,8 +90,8 @@ const AvailabilityPage = ({ profile, eventType, workingHours }) => {
   return (
     <>
       <HeadSeo
-        title={`${rescheduleUid ? "Reschedule" : ""} ${eventType.title} | ${profile.name}`}
-        description={`${rescheduleUid ? "Reschedule" : ""} ${eventType.title}`}
+        title={`${rescheduleUid ? t("reschedule") : ""} ${eventType.title} | ${profile.name}`}
+        description={`${rescheduleUid ? t("reschedule") : ""} ${eventType.title}`}
         name={profile.name}
         avatar={profile.image}
       />
@@ -117,7 +124,7 @@ const AvailabilityPage = ({ profile, eventType, workingHours }) => {
                       {eventType.title}
                       <div>
                         <ClockIcon className="inline-block w-4 h-4 mr-1 -mt-1" />
-                        {eventType.length} minutes
+                        {eventType.length} {t("minutes")}
                       </div>
                       {eventType.price > 0 && (
                         <div>
@@ -158,7 +165,7 @@ const AvailabilityPage = ({ profile, eventType, workingHours }) => {
                   <h1 className="mb-4 text-3xl font-semibold text-gray-800 font-cal ">{eventType.title}</h1>
                   <p className="px-2 py-1 mb-1 -ml-2 text-gray-500">
                     <ClockIcon className="inline-block w-4 h-4 mr-1 -mt-1" />
-                    {eventType.length} minutes
+                    {eventType.length} {t("minutes")}
                   </p>
                   {eventType.price > 0 && (
                     <p className="px-2 py-1 mb-1 -ml-2 text-gray-500">
@@ -178,6 +185,7 @@ const AvailabilityPage = ({ profile, eventType, workingHours }) => {
                   <p className="mt-3 mb-8 text-gray-600 ">{eventType.description}</p>
                 </div>
                 <DatePicker
+                  localeProp={locale}
                   date={selectedDate}
                   periodType={eventType?.periodType}
                   periodStartDate={eventType?.periodStartDate}
@@ -197,6 +205,7 @@ const AvailabilityPage = ({ profile, eventType, workingHours }) => {
 
                 {selectedDate && (
                   <AvailableTimes
+                    localeProp={locale}
                     workingHours={workingHours}
                     timeFormat={timeFormat}
                     minimumBookingNotice={eventType.minimumBookingNotice}
@@ -229,11 +238,15 @@ const AvailabilityPage = ({ profile, eventType, workingHours }) => {
           )}
         </Collapsible.Trigger>
         <Collapsible.Content>
-          <TimeOptions onSelectTimeZone={handleSelectTimeZone} onToggle24hClock={handleToggle24hClock} />
+          <TimeOptions
+            localeProp={locale}
+            onSelectTimeZone={handleSelectTimeZone}
+            onToggle24hClock={handleToggle24hClock}
+          />
         </Collapsible.Content>
       </Collapsible.Root>
     );
   }
-};
+}
 
 export default AvailabilityPage;

@@ -164,6 +164,14 @@ enum BookingStatus {
   PENDING   @map("pending")
 }
 
+model DailyEventReference {
+  id         Int         @id @default(autoincrement())
+  dailyurl   String      @default("dailycallurl") 
+  dailytoken String      @default("dailytoken")
+  booking    Booking?    @relation(fields: [bookingId], references: [id])
+  bookingId  Int?
+}
+
 model Booking {
   id          Int                @id @default(autoincrement())
   uid         String             @unique
@@ -181,6 +189,8 @@ model Booking {
 
   attendees Attendee[]
   location  String?
+
+  dailyRef  DailyEventReference?
 
   createdAt DateTime  @default(now())
   updatedAt DateTime?
@@ -277,4 +287,19 @@ model Payment {
   refunded       Boolean
   data           Json
   externalId     String   @unique
+}
+
+enum WebhookTriggerEvents {
+  BOOKING_CREATED
+  BOOKING_RESCHEDULED
+  BOOKING_CANCELLED
+}
+
+model Webhook {
+  id            String      @unique @id 
+  userId        Int       
+  subscriberUrl String
+  createdAt     DateTime  @default(now())
+  active        Boolean   @default(true)         
+  eventTriggers WebhookTriggerEvents[]
 }

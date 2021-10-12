@@ -4,10 +4,7 @@ import React from "react";
 import { TextProps } from "../Text";
 
 const Overline: React.FunctionComponent<TextProps> = (props: TextProps) => {
-  const classes = classnames(
-    "text-sm uppercase font-semibold leading-snug tracking-wide text-gray-900 ",
-    props?.className
-  );
+  const classes = classnames("text-sm capitalize font-medium text-gray-900 ", props?.className);
 
   return <p className={classes}>{props?.text || props.children}</p>;
 };

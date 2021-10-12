@@ -4,10 +4,12 @@ import { FC, useEffect, useState } from "react";
 import TimezoneSelect, { ITimezoneOption } from "react-timezone-select";
 
 import classNames from "@lib/classNames";
+import { useLocale } from "@lib/hooks/useLocale";
 
 import { is24h, timeZone } from "../../lib/clock";
 
 type Props = {
+  localeProp: string;
   onSelectTimeZone: (selectedTimeZone: string) => void;
   onToggle24hClock: (is24hClock: boolean) => void;
 };
@@ -15,6 +17,7 @@ type Props = {
 const TimeOptions: FC<Props> = (props) => {
   const [selectedTimeZone, setSelectedTimeZone] = useState("");
   const [is24hClock, setIs24hClock] = useState(false);
+  const { t } = useLocale({ localeProp: props.localeProp });
 
   useEffect(() => {
     setIs24hClock(is24h());
@@ -33,13 +36,13 @@ const TimeOptions: FC<Props> = (props) => {
   };
 
   return selectedTimeZone !== "" ? (
-    <div className="absolute z-10 w-full px-4 py-2 bg-white border border-gray-200 rounded-sm max-w-80  ">
+    <div className="absolute z-10 w-full px-4 py-2 bg-white border border-gray-200 rounded-sm max-w-80 ">
       <div className="flex mb-4">
-        <div className="w-1/2 font-medium text-gray-600 ">Time Options</div>
+        <div className="w-1/2 font-medium text-gray-600 ">{t("time_options")}</div>
         <div className="w-1/2">
           <Switch.Group as="div" className="flex items-center justify-end">
             <Switch.Label as="span" className="mr-3">
-              <span className="text-sm text-gray-500 ">am/pm</span>
+              <span className="text-sm text-gray-500 ">{t("am_pm")}</span>
             </Switch.Label>
             <Switch
               checked={is24hClock}
@@ -48,7 +51,7 @@ const TimeOptions: FC<Props> = (props) => {
                 is24hClock ? "bg-black" : " bg-gray-200",
                 "relative inline-flex flex-shrink-0 h-5 w-8 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black"
               )}>
-              <span className="sr-only">Use setting</span>
+              <span className="sr-only">{t("use_setting")}</span>
               <span
                 aria-hidden="true"
                 className={classNames(
@@ -58,7 +61,7 @@ const TimeOptions: FC<Props> = (props) => {
               />
             </Switch>
             <Switch.Label as="span" className="ml-3">
-              <span className="text-sm text-gray-500 ">24h</span>
+              <span className="text-sm text-gray-500 ">{t("24_h")}</span>
             </Switch.Label>
           </Switch.Group>
         </div>

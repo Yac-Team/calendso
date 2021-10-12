@@ -1,9 +1,12 @@
 import { ArrowRightIcon } from "@heroicons/react/solid";
 import { Prisma } from "@prisma/client";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Link from "next/link";
 import React from "react";
 
+import { getOrSetUserLocaleFromHeaders } from "@lib/core/i18n/i18n.utils";
+import { useLocale } from "@lib/hooks/useLocale";
 import useTheme from "@lib/hooks/useTheme";
 import { useToggleQuery } from "@lib/hooks/useToggleQuery";
 import prisma from "@lib/prisma";
@@ -17,9 +20,10 @@ import AvatarGroup from "@components/ui/AvatarGroup";
 import Button from "@components/ui/Button";
 import Text from "@components/ui/Text";
 
-function TeamPage({ team }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+function TeamPage({ team, localeProp }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const { isReady } = useTheme();
   const showMembers = useToggleQuery("members");
+  const { t, locale } = useLocale({ localeProp: localeProp });
 
   const eventTypes = (
     <ul className="space-y-3">
@@ -32,7 +36,7 @@ function TeamPage({ team }: InferGetServerSidePropsType<typeof getServerSideProp
             <a className="flex justify-between px-6 py-4">
               <div className="flex-shrink">
                 <h2 className="font-semibold font-cal text-neutral-900 ">{type.title}</h2>
-                <EventTypeDescription asyncUseCalendar className="text-sm" eventType={type} />
+                <EventTypeDescription localeProp={locale} className="text-sm" eventType={type} />
               </div>
               <div className="mt-1">
                 <AvatarGroup
@@ -63,7 +67,7 @@ function TeamPage({ team }: InferGetServerSidePropsType<typeof getServerSideProp
             <Avatar alt={teamName} imageSrc={team.logo} className="w-20 h-20 mx-auto mb-4 rounded-full" />
             <Text variant="headline">{teamName}</Text>
           </div>
-          {(showMembers.isOn || !team.eventTypes.length) && <Team team={team} />}
+          {(showMembers.isOn || !team.eventTypes.length) && <Team localeProp={locale} team={team} />}
           {!showMembers.isOn && team.eventTypes.length > 0 && (
             <div className="max-w-3xl mx-auto">
               {eventTypes}
@@ -73,7 +77,7 @@ function TeamPage({ team }: InferGetServerSidePropsType<typeof getServerSideProp
                   <div className="w-full border-t border-gray-200 " />
                 </div>
                 <div className="relative flex justify-center">
-                  <span className="px-2 text-sm text-gray-500 bg-gray-100 ">OR</span>
+                  <span className="px-2 text-sm text-gray-500 bg-gray-100  ">{t("or")}</span>
                 </div>
               </div>
 
@@ -83,7 +87,7 @@ function TeamPage({ team }: InferGetServerSidePropsType<typeof getServerSideProp
                   EndIcon={ArrowRightIcon}
                   href={`/team/${team.slug}?members=1`}
                   shallow={true}>
-                  Book a team member instead
+                  {t("book_a_team_member")}
                 </Button>
               </aside>
             </div>
@@ -95,7 +99,7 @@ function TeamPage({ team }: InferGetServerSidePropsType<typeof getServerSideProp
 }
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  return { notFound: true };
+  const locale = await getOrSetUserLocaleFromHeaders(context.req);
   const slug = Array.isArray(context.query?.slug) ? context.query.slug.pop() : context.query.slug;
 
   const userSelect = Prisma.validator<Prisma.UserSelect>()({
@@ -158,7 +162,9 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 
   return {
     props: {
+      localeProp: locale,
       team,
+      ...(await serverSideTranslations(locale, ["common"])),
     },
   };
 };

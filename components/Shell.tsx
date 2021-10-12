@@ -59,9 +59,10 @@ function useRedirectToLoginIfUnauthenticated() {
 }
 
 export default function Shell(props: {
+  centered?: boolean;
   title?: string;
   heading: ReactNode;
-  subtitle: string;
+  subtitle?: ReactNode;
   children: ReactNode;
   CTA?: ReactNode;
 }) {
@@ -121,7 +122,7 @@ export default function Shell(props: {
     <>
       <HeadSeo
         title={pageTitle ?? "Yac Meet"}
-        description={props.subtitle}
+        description={props.subtitle ? props.subtitle?.toString() : ""}
         nextSeoProps={{
           nofollow: true,
           noindex: true,
@@ -198,10 +199,12 @@ export default function Shell(props: {
                 </div>
               </div>
             </nav>
-            <div className="py-8">
+            <div className={classNames(props.centered && "md:max-w-5xl mx-auto", "py-8")}>
               <div className="block sm:flex justify-between px-4 sm:px-6 md:px-8 min-h-[80px]">
-                <div className="mb-8">
-                  <h1 className="text-xl font-bold text-gray-900 font-cal">{props.heading}</h1>
+                <div className="w-full mb-8">
+                  <h1 className="mb-1 text-xl font-bold tracking-wide text-gray-900 font-cal">
+                    {props.heading}
+                  </h1>
                   <p className="mr-4 text-sm text-neutral-500">{props.subtitle}</p>
                 </div>
                 <div className="flex-shrink-0 mb-4">{props.CTA}</div>

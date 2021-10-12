@@ -7,7 +7,12 @@ import TimezoneSelect from "react-timezone-select";
 
 import { asStringOrUndefined } from "@lib/asStringOrNull";
 import { getSession } from "@lib/auth";
-import { extractLocaleInfo, localeLabels, localeOptions, OptionType } from "@lib/core/i18n/i18n.utils";
+import {
+  getOrSetUserLocaleFromHeaders,
+  localeLabels,
+  localeOptions,
+  OptionType,
+} from "@lib/core/i18n/i18n.utils";
 import { useLocale } from "@lib/hooks/useLocale";
 import prisma from "@lib/prisma";
 import { trpc } from "@lib/trpc";
@@ -335,7 +340,7 @@ export default function Settings(props: InferGetServerSidePropsType<typeof getSe
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const session = await getSession(context);
-  const locale = await extractLocaleInfo(context.req);
+  const locale = await getOrSetUserLocaleFromHeaders(context.req);
 
   if (!session?.user?.id) {
     return { redirect: { permanent: false, destination: "/auth/login" } };

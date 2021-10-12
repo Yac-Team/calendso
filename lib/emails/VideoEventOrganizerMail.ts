@@ -26,13 +26,21 @@ export default class VideoEventOrganizerMail extends EventOrganizerMail {
    * @protected
    */
   protected getAdditionalBody(): string {
+    const meetingPassword = this.videoCallData.password;
+    const meetingId = getFormattedMeetingId(this.videoCallData);
     // This odd indentation is necessary because otherwise the leading tabs will be applied into the event description.
-    return `
+    if (meetingPassword && meetingId) {
+      return `
 <strong>Video call provider:</strong> ${getIntegrationName(this.videoCallData)}<br />
 <strong>Meeting ID:</strong> ${getFormattedMeetingId(this.videoCallData)}<br />
 <strong>Meeting Password:</strong> ${
-      this.videoCallData.password || "This meeting doesn’t require a password."
-    }<br />
+        this.videoCallData.password || "This meeting doesn’t require a password."
+      }<br />
+<strong>Meeting URL:</strong> <a href="${this.videoCallData.url}">${this.videoCallData.url}</a><br />
+    `;
+    }
+    return `
+<strong>Video call provider:</strong> ${getIntegrationName(this.videoCallData)}<br />
 <strong>Meeting URL:</strong> <a href="${this.videoCallData.url}">${this.videoCallData.url}</a><br />
     `;
   }
