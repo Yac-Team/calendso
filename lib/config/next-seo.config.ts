@@ -4,7 +4,7 @@ import { HeadSeoProps } from "@components/seo/head-seo";
 
 const seoImages = {
   default: "https://cal.com/og-image.png",
-  ogImage: "https://og-image-one-pi.vercel.app/",
+  ogImage: `https://ondemand.bannerbear.com/signedurl/${process.env.BB_SIGNED_URL_BASE_ID}/image.jpg`,
 };
 
 export const getSeoImage = (key: keyof typeof seoImages): string => {
