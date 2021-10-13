@@ -69,6 +69,7 @@ const buildSeoMeta = (pageProps: {
 };
 
 const constructImage = (name: string, avatar: string, description: string): string => {
+  if (process.browser) throw new Error("constructImage should never run in browser");
   //api_key: your project API key - keep this safe and non-public
   const api_key = process.env.BB_API_KEY;
 
@@ -130,8 +131,10 @@ export const HeadSeo: React.FC<HeadSeoProps & { children?: never }> = (props) =>
     try {
       pageImage = getSeoImage("ogImage") + constructImage(name, avatar, description);
     } catch (error) {
-      console.error("Error generating ogImage");
-      console.error({ error });
+      if (!process.browser) {
+        console.error("Error generating ogImage");
+        console.error({ error });
+      }
     }
     seoObject = buildSeoMeta({
       title: pageTitle,
