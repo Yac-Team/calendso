@@ -205,7 +205,7 @@ export default function Onboarding(props: InferGetServerSidePropsType<typeof get
     label: null,
   });
   const currentTime = React.useMemo(() => {
-    return dayjs().tz(selectedTimeZone.value).format("H:mm A");
+    return dayjs().tz(selectedTimeZone.value).format("h:mm A");
   }, [selectedTimeZone]);
   /** End TimeZone */
 
