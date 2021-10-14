@@ -84,7 +84,7 @@ const constructImage = (name: string, avatar: string, description: string): stri
     },
     {
       name: "subject",
-      text: `Meet ${name} on Yac Meet`,
+      text: `Book a meeting with ${name}`,
       color: null,
       background: null,
     },

@@ -22,7 +22,7 @@ export default function User(props: InferGetServerSidePropsType<typeof getServer
     <>
       <HeadSeo
         title={user.name || user.username}
-        description={user.name || user.username}
+        description={"@" + user.username}
         name={user.name || user.username}
         avatar={user.avatar}
       />
