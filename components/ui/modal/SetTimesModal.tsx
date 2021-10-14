@@ -1,9 +1,26 @@
 import { ClockIcon } from "@heroicons/react/outline";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 export default function SetTimesModal(props) {
-  const [startHours, startMinutes] = [Math.floor(props.startTime / 60), props.startTime % 60];
-  const [endHours, endMinutes] = [Math.floor(props.endTime / 60), props.endTime % 60];
+  const [startHours, startMinutes] = [
+    Math.floor(props.startTime / 60) === 0
+      ? 12
+      : Math.floor(props.startTime / 60) > 12
+      ? Math.floor(props.startTime / 60) - 12
+      : Math.floor(props.startTime / 60),
+    props.startTime % 60,
+  ];
+  const [endHours, endMinutes] = [
+    Math.floor(props.endTime / 60) === 0
+      ? 12
+      : Math.floor(props.endTime / 60) > 12
+      ? Math.floor(props.endTime / 60) - 12
+      : Math.floor(props.endTime / 60),
+    props.endTime % 60,
+  ];
+
+  const [startIsPM, setStartIsPM] = useState(Number(Math.floor(props.startTime / 60) > 12));
+  const [endIsPM, setEndIsPM] = useState(Number(Math.floor(props.endTime / 60) > 12));
 
   const startHoursRef = useRef<HTMLInputElement>();
   const startMinsRef = useRef<HTMLInputElement>();
@@ -13,9 +30,16 @@ export default function SetTimesModal(props) {
   function updateStartEndTimesHandler(event) {
     event.preventDefault();
 
-    const enteredStartHours = parseInt(startHoursRef.current.value);
+    const startHours12Hour = parseInt(startHoursRef.current.value);
+    const endHours12Hour = parseInt(endHoursRef.current.value);
+
+    const enteredStartHours = startIsPM
+      ? startHours12Hour + 12
+      : startHours12Hour === 12
+      ? 0
+      : startHours12Hour;
     const enteredStartMins = parseInt(startMinsRef.current.value);
-    const enteredEndHours = parseInt(endHoursRef.current.value);
+    const enteredEndHours = endIsPM ? endHours12Hour + 12 : endHours12Hour === 12 ? 0 : endHours12Hour;
     const enteredEndMins = parseInt(endMinsRef.current.value);
 
     props.onChange({
@@ -28,26 +52,26 @@ export default function SetTimesModal(props) {
 
   return (
     <div
-      className="fixed z-50 inset-0 overflow-y-auto"
+      className="fixed inset-0 z-50 overflow-y-auto"
       aria-labelledby="modal-title"
       role="dialog"
       aria-modal="true">
-      <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+      <div className="flex items-end justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
         <div
-          className="fixed inset-0 bg-gray-500 z-0 bg-opacity-75 transition-opacity"
+          className="fixed inset-0 z-0 transition-opacity bg-gray-500 bg-opacity-75"
           aria-hidden="true"></div>
 
         <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
           &#8203;
         </span>
 
-        <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
-          <div className="sm:flex sm:items-start mb-4">
-            <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10">
-              <ClockIcon className="h-6 w-6 text-black" />
+        <div className="inline-block px-4 pt-5 pb-4 overflow-hidden text-left align-bottom transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+          <div className="mb-4 sm:flex sm:items-start">
+            <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 mx-auto bg-gray-900 rounded-full sm:mx-0 sm:h-10 sm:w-10">
+              <ClockIcon className="w-6 h-6 text-black" />
             </div>
             <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-              <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+              <h3 className="text-lg font-medium leading-6 text-gray-900" id="modal-title">
                 Change when you are available for bookings
               </h3>
               <div>
@@ -56,7 +80,7 @@ export default function SetTimesModal(props) {
             </div>
           </div>
           <div className="flex mb-4">
-            <label className="w-1/4 pt-2 block text-sm font-medium text-gray-700">Start time</label>
+            <label className="block w-1/4 pt-2 text-sm font-medium text-gray-700">Start time</label>
             <div>
               <label htmlFor="startHours" className="sr-only">
                 Hours
@@ -65,16 +89,16 @@ export default function SetTimesModal(props) {
                 ref={startHoursRef}
                 type="number"
                 min="0"
-                max="23"
+                max={startIsPM ? "11" : "12"}
                 maxLength="2"
                 name="hours"
                 id="startHours"
-                className="shadow-sm focus:ring-black focus:border-black block w-full sm:text-sm border-gray-300 rounded-md"
+                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black sm:text-sm"
                 placeholder="9"
                 defaultValue={startHours}
               />
             </div>
-            <span className="mx-2 pt-1">:</span>
+            <span className="pt-1 mx-2 text-gray-900">:</span>
             <div>
               <label htmlFor="startMinutes" className="sr-only">
                 Minutes
@@ -88,14 +112,31 @@ export default function SetTimesModal(props) {
                 maxLength="2"
                 name="minutes"
                 id="startMinutes"
-                className="shadow-sm focus:ring-black focus:border-black block w-full sm:text-sm border-gray-300 rounded-md"
+                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black sm:text-sm"
                 placeholder="30"
                 defaultValue={startMinutes}
               />
             </div>
+            <span className="pt-1 mx-2"></span>
+            <div>
+              <label htmlFor="startAMPM" className="sr-only">
+                AM/PM
+              </label>
+              <select
+                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black sm:text-sm"
+                name="AMPM"
+                value={String(startIsPM)}
+                onChange={(e) => {
+                  setStartIsPM(Number(e.target.value));
+                }}
+                id="startAMPM">
+                <option value="0">AM</option>
+                <option value="1">PM</option>
+              </select>
+            </div>
           </div>
           <div className="flex">
-            <label className="w-1/4 pt-2 block text-sm font-medium text-gray-700">End time</label>
+            <label className="block w-1/4 pt-2 text-sm font-medium text-gray-700">End time</label>
             <div>
               <label htmlFor="endHours" className="sr-only">
                 Hours
@@ -104,16 +145,16 @@ export default function SetTimesModal(props) {
                 ref={endHoursRef}
                 type="number"
                 min="0"
-                max="24"
+                max={endIsPM ? "11" : "12"}
                 maxLength="2"
                 name="hours"
                 id="endHours"
-                className="shadow-sm focus:ring-black focus:border-black block w-full sm:text-sm border-gray-300 rounded-md"
+                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black sm:text-sm"
                 placeholder="17"
                 defaultValue={endHours}
               />
             </div>
-            <span className="mx-2 pt-1">:</span>
+            <span className="pt-1 mx-2 text-gray-900">:</span>
             <div>
               <label htmlFor="endMinutes" className="sr-only">
                 Minutes
@@ -127,17 +168,34 @@ export default function SetTimesModal(props) {
                 step="15"
                 name="minutes"
                 id="endMinutes"
-                className="shadow-sm focus:ring-black focus:border-black block w-full sm:text-sm border-gray-300 rounded-md"
+                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black sm:text-sm"
                 placeholder="30"
                 defaultValue={endMinutes}
               />
+            </div>
+            <span className="pt-1 mx-2"></span>
+            <div>
+              <label htmlFor="endAMPM" className="sr-only">
+                AM/PM
+              </label>
+              <select
+                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black sm:text-sm"
+                name="AMPM"
+                value={String(endIsPM)}
+                onChange={(e) => {
+                  setEndIsPM(Number(e.target.value));
+                }}
+                id="endAMPM">
+                <option value="0">AM</option>
+                <option value="1">PM</option>
+              </select>
             </div>
           </div>
           <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
             <button onClick={updateStartEndTimesHandler} type="submit" className="btn btn-primary">
               Save
             </button>
-            <button onClick={props.onExit} type="button" className="btn btn-white mr-2">
+            <button onClick={props.onExit} type="button" className="mr-2 btn btn-white">
               Cancel
             </button>
           </div>
