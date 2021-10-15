@@ -111,7 +111,7 @@
   }
   /* btn icon */
   .btn-icon {
-    @apply p-2 border border-transparent hover:border-gray-300 cursor-pointer rounded-sm text-neutral-500 hover:text-neutral-900;
+    @apply p-2 border border-transparent rounded-sm cursor-pointer hover:border-gray-300 text-neutral-500 hover:text-neutral-900;
   }
   /* slider */
   .slider {
@@ -358,10 +358,6 @@ nav#nav--settings > a.active svg {
 
 table tbody tr:nth-child(odd) {
   @apply bg-gray-50;
-}
-
-body {
-  background-color: #f3f4f6;
 }
 
 .text-white-important {

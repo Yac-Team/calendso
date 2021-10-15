@@ -18,9 +18,8 @@ class MyDocument extends Document<Props> {
           <link rel="manifest" href="/site.webmanifest" />
           <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000" />
           <meta name="msapplication-TileColor" content="#ff0000" />
-          <meta name="theme-color" content="#F3C93C" />
           <meta name="theme-color" content="#F3C93C" media="(prefers-color-scheme: light)" />
-          <meta name="theme-color" content="#F3C93C" media="(prefers-color-scheme: dark)" />
+          <meta name="theme-color" content="#141414" media="(prefers-color-scheme: dark)" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
           <link
