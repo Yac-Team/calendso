@@ -17,6 +17,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === "POST") {
     const body = req.body as ZoomDeauthorizationRequestBody;
 
+    console.log({ body });
+
+    return;
+
     const zoomCredential = await prisma.credential.findFirst({
       where: {
         AND: {
