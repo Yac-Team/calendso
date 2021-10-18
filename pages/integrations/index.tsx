@@ -191,7 +191,7 @@ export default function Home({ integrations }: InferGetServerSidePropsType<typeo
                       </div>
                     ) : integration.type === "zoom_video" ? (
                       <a
-                        href="https://zoom.us/oauth/authorize?response_type=code&client_id=UecpfqOJTW6rOYi9Vg5t2g&redirect_uri=https://meet.yac.com/api/integrations/zoomvideo/callback"
+                        onClick={() => integrationHandler(integration.type)}
                         target="_blank"
                         rel="noopener noreferrer">
                         <img
