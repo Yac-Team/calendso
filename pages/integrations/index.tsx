@@ -189,6 +189,17 @@ export default function Home({ integrations }: InferGetServerSidePropsType<typeo
                           Sign in with Google
                         </button>
                       </div>
+                    ) : integration.type === "zoom_video" ? (
+                      <a
+                        href="https://zoom.us/oauth/authorize?response_type=code&client_id=UecpfqOJTW6rOYi9Vg5t2g&redirect_uri=https://meet.yac.com/api/integrations/zoomvideo/callback"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        <img
+                          src="https://marketplacecontent.zoom.us/zoom_marketplace/img/add_to_zoom.png"
+                          height="32"
+                          alt="Add to ZOOM"
+                        />
+                      </a>
                     ) : (
                       <div className="w-2/12 pt-2 text-right">
                         <Button color="secondary" onClick={() => integrationHandler(integration.type)}>
