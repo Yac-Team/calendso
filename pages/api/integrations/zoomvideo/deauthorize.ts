@@ -14,6 +14,11 @@ type ZoomDeauthorizationRequestBody = {
 };
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  console.log("here");
+  console.log("body");
+  console.log(req.body);
+  console.log("headers");
+  console.log(req.headers);
   if (req.method === "POST") {
     const body = req.body as ZoomDeauthorizationRequestBody;
 
