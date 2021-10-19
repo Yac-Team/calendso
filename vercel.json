@@ -1,0 +1,20 @@
+{
+    "functions": {
+        "pages/api/auth/*": {
+            "memory": 3008,
+            "maxDuration": 15
+        },
+        "pages/api/auth/two-factor/*": {
+            "memory": 3008,
+            "maxDuration": 15
+        },
+        "pages/[user].tsx": {
+            "memory": 3008,
+            "maxDuration": 15
+        },
+        "pages/index.tsx": {
+            "memory": 2048,
+            "maxDuration": 15
+        }
+    }
+}
