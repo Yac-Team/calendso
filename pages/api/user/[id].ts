@@ -51,7 +51,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           "theme",
           "completedOnboarding",
         ]),
-        bio: req.body.description ?? req.body.data?.bio,
+        bio: req.body.description ?? (req.body.data?.description || req.body.data?.bio),
       },
       select: {
         id: true,
