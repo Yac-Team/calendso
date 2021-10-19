@@ -9,11 +9,12 @@ import {
 } from "@heroicons/react/solid";
 import { SchedulingType, Prisma } from "@prisma/client";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
+import { signOut } from "next-auth/client";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { Fragment, useRef } from "react";
+import React, { Fragment, useEffect, useRef } from "react";
 import { useMutation } from "react-query";
 
 import { asStringOrNull } from "@lib/asStringOrNull";
@@ -54,6 +55,14 @@ type Profile = PageProps["profiles"][number];
 type MembershipCount = EventType["metadata"]["membershipCount"];
 
 const EventTypesPage = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  useEffect(() => {
+    if (props.user && !props.user.teamId) {
+      signOut().then(() => {
+        window.location.reload();
+      });
+    }
+  }, []);
+
   const { t, locale } = useLocale({ localeProp: props.localeProp });
 
   const CreateFirstEventTypeView = () => (
@@ -593,6 +602,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       id: session.user.id,
     },
     select: {
+      teamId: true,
       asyncUseCalendar: true,
       id: true,
       username: true,

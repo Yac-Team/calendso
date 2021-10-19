@@ -136,7 +136,7 @@ export default function Onboarding(props: InferGetServerSidePropsType<typeof get
       return null;
     }
 
-    return (
+    return integration.type === "google_calendar" ? (
       <li
         onClick={() => handleAddIntegration(integration.type)}
         key={integration.type}
@@ -150,47 +150,38 @@ export default function Onboarding(props: InferGetServerSidePropsType<typeof get
             {integration.description}
           </Text>
         </div>
-        {integration.type === "google_calendar" ? (
-          <div>
-            <button
-              onClick={() => integrationHandler(integration.type)}
+        <div>
+          <button
+            onClick={() => handleAddIntegration(integration.type)}
+            style={{
+              fontFamily: "Roboto",
+              backgroundColor: "#4285f4",
+              borderRadius: 2,
+              paddingRight: 8,
+              alignItems: "center",
+            }}
+            className="flex justify-start py-[2px] px-[2px] min-w-[215px] font-medium text-neutral-900 active:bg-[#1669F2] hover:opacity-80">
+            <div
               style={{
-                fontFamily: "Roboto",
-                backgroundColor: "#4285f4",
+                width: 40,
+                height: 40,
                 borderRadius: 2,
-                paddingRight: 8,
-                alignItems: "center",
-              }}
-              className="flex justify-start py-[2px] px-[2px] min-w-[215px] font-medium text-neutral-900 active:bg-[#1669F2] hover:opacity-80">
-              <div
-                style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: 2,
-                  padding: 11,
-                  backgroundColor: "white",
-                  marginRight: 16,
-                }}>
-                <img
-                  width="18px"
-                  src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-                  alt="Google logo"
-                />
-              </div>
-              Sign in with Google
-            </button>
-          </div>
-        ) : (
-          <div className="w-2/12 text-right">
-            <Button
-              className="btn-sm"
-              color="secondary"
-              onClick={() => handleAddIntegration(integration.type)}>
-              Connect
-            </Button>
-          </div>
-        )}
+                padding: 11,
+                backgroundColor: "white",
+                marginRight: 16,
+              }}>
+              <img
+                width="18px"
+                src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+                alt="Google logo"
+              />
+            </div>
+            Sign in with Google
+          </button>
+        </div>
       </li>
+    ) : (
+      <></>
     );
   };
   /** End Internal Components */
@@ -205,7 +196,7 @@ export default function Onboarding(props: InferGetServerSidePropsType<typeof get
     label: null,
   });
   const currentTime = React.useMemo(() => {
-    return dayjs().tz(selectedTimeZone.value).format("H:mm A");
+    return dayjs().tz(selectedTimeZone.value).format("h:mm A");
   }, [selectedTimeZone]);
   /** End TimeZone */
 
@@ -512,7 +503,7 @@ export default function Onboarding(props: InferGetServerSidePropsType<typeof get
       id: "profile",
       title: "Nearly there",
       description:
-        "Last thing, a brief description about you and a photo really help you get bookings and let people know who they’re meeting with.",
+        "Last thing, a brief description about you and a photo really help you get meetings and let people know who they’re meeting with.",
       Component: (
         <form className="sm:mx-auto sm:w-full" id="ONBOARDING_STEP_4">
           <section className="space-y-4">

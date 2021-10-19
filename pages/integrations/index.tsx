@@ -136,78 +136,92 @@ export default function Home({ integrations }: InferGetServerSidePropsType<typeo
     setSelectableCalendars([...selectableCalendars]);
   }
 
-  const ConnectNewAppDialog = () => (
-    <Dialog>
-      <DialogTrigger className="px-4 py-2 mt-6 text-sm font-medium text-white border border-transparent rounded-sm shadow-sm bg-neutral-900 hover:bg-neutral-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-900">
-        <PlusIcon className="inline w-5 h-5 mr-1" />
-        Connect a new App
-      </DialogTrigger>
+  const ConnectNewAppDialog = useCallback(
+    () => (
+      <Dialog>
+        <DialogTrigger className="px-4 py-2 mt-6 text-sm font-medium text-white border border-transparent rounded-sm shadow-sm bg-neutral-900 hover:bg-neutral-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-900">
+          <PlusIcon className="inline w-5 h-5 mr-1" />
+          Connect a new App
+        </DialogTrigger>
 
-      <DialogContent>
-        <DialogHeader title="Connect a new App" subtitle="Integrate your account with other services." />
-        <div className="my-4">
-          <ul className="divide-y divide-gray-200">
-            {integrations
-              .filter((integration) => integration.installed)
-              .map((integration) => {
-                return (
-                  <li key={integration.type} className="flex py-4">
-                    <div className="w-1/12 pt-2 mr-4">
-                      <img className="w-8 h-8 mr-2" src={integration.imageSrc} alt={integration.title} />
-                    </div>
-                    <div className="w-10/12">
-                      <h2 className="font-medium text-gray-900 font-cal">{integration.title}</h2>
-                      <p className="text-sm text-gray-900">{integration.description}</p>
-                    </div>
-                    {integration.type === "google_calendar" ? (
-                      <div>
-                        <button
-                          onClick={() => integrationHandler(integration.type)}
-                          style={{
-                            fontFamily: "Roboto",
-                            backgroundColor: "#4285f4",
-                            borderRadius: 2,
-                            paddingRight: 8,
-                            alignItems: "center",
-                          }}
-                          className="flex justify-start py-[2px] px-[2px] min-w-[215px] font-medium text-neutral-900 active:bg-[#1669F2] hover:opacity-80">
-                          <div
+        <DialogContent>
+          <DialogHeader title="Connect a new App" subtitle="Integrate your account with other services." />
+          <div className="my-4">
+            <ul className="divide-y divide-gray-200">
+              {integrations
+                .filter((integration) => integration.installed)
+                .map((integration) => {
+                  return (
+                    <li key={integration.type} className="flex py-4">
+                      <div className="w-1/12 pt-2 mr-4">
+                        <img className="w-8 h-8 mr-2" src={integration.imageSrc} alt={integration.title} />
+                      </div>
+                      <div className="w-10/12">
+                        <h2 className="font-medium text-gray-900 font-cal">{integration.title}</h2>
+                        <p className="text-sm text-gray-900">{integration.description}</p>
+                      </div>
+                      {integration.type === "google_calendar" ? (
+                        <div>
+                          <button
+                            onClick={() => integrationHandler(integration.type)}
                             style={{
-                              width: 40,
-                              height: 40,
+                              fontFamily: "Roboto",
+                              backgroundColor: "#4285f4",
                               borderRadius: 2,
-                              padding: 11,
-                              backgroundColor: "white",
-                              marginRight: 16,
-                            }}>
-                            <img
-                              width="18px"
-                              src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-                              alt="Google logo"
-                            />
-                          </div>
-                          Sign in with Google
-                        </button>
-                      </div>
-                    ) : (
-                      <div className="w-2/12 pt-2 text-right">
-                        <Button color="secondary" onClick={() => integrationHandler(integration.type)}>
-                          Connect
-                        </Button>
-                      </div>
-                    )}
-                  </li>
-                );
-              })}
-          </ul>
-        </div>
-        <div className="gap-2 mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
-          <DialogClose asChild>
-            <Button color="secondary">Cancel</Button>
-          </DialogClose>
-        </div>
-      </DialogContent>
-    </Dialog>
+                              paddingRight: 8,
+                              alignItems: "center",
+                            }}
+                            className="flex justify-start py-[2px] px-[2px] min-w-[215px] font-medium text-neutral-900 active:bg-[#1669F2] hover:opacity-80">
+                            <div
+                              style={{
+                                width: 40,
+                                height: 40,
+                                borderRadius: 2,
+                                padding: 11,
+                                backgroundColor: "white",
+                                marginRight: 16,
+                              }}>
+                              <img
+                                width="18px"
+                                src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+                                alt="Google logo"
+                              />
+                            </div>
+                            Sign in with Google
+                          </button>
+                        </div>
+                      ) : integration.type === "zoom_video" ? (
+                        <a
+                          onClick={() => integrationHandler(integration.type)}
+                          target="_blank"
+                          rel="noopener noreferrer">
+                          <img
+                            src="https://marketplacecontent.zoom.us/zoom_marketplace/img/add_to_zoom.png"
+                            height="32"
+                            alt="Add to ZOOM"
+                          />
+                        </a>
+                      ) : (
+                        <div className="w-2/12 pt-2 text-right">
+                          <Button color="secondary" onClick={() => integrationHandler(integration.type)}>
+                            Connect
+                          </Button>
+                        </div>
+                      )}
+                    </li>
+                  );
+                })}
+            </ul>
+          </div>
+          <div className="gap-2 mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
+            <DialogClose asChild>
+              <Button color="secondary">Cancel</Button>
+            </DialogClose>
+          </div>
+        </DialogContent>
+      </Dialog>
+    ),
+    [integrations]
   );
 
   const SelectCalendarDialog = () => (

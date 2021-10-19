@@ -1,18 +1,17 @@
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
-import { GetServerSidePropsContext } from "next";
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { useEffect, useState } from "react";
 
 import { getSession } from "@lib/auth";
 import prisma from "@lib/prisma";
-import { inferSSRProps } from "@lib/types/inferSSRProps";
 
 import Loader from "@components/Loader";
 import Shell from "@components/Shell";
 
 dayjs.extend(utc);
 
-export default function Troubleshoot({ user }: inferSSRProps<typeof getServerSideProps>) {
+export default function Troubleshoot({ user }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [loading, setLoading] = useState(true);
   const [availability, setAvailability] = useState([]);
   const [selectedDate, setSelectedDate] = useState(dayjs());
@@ -55,29 +54,29 @@ export default function Troubleshoot({ user }: inferSSRProps<typeof getServerSid
       <Shell
         heading="Troubleshoot"
         subtitle="Understand why certain times are available and others are blocked.">
-        <div className="bg-white max-w-xl overflow-hidden shadow rounded-sm">
+        <div className="max-w-xl overflow-hidden text-gray-900 bg-white rounded-sm shadow">
           <div className="px-4 py-5 sm:p-6">
             Here is an overview of your day on{" "}
             <input
               type="date"
-              className="inline border-none h-8 p-0"
+              className="bg-white"
               defaultValue={selectedDate.format("YYYY-MM-DD")}
               onBlur={(e) => {
                 setSelectedDate(dayjs(e.target.value));
               }}
             />
-            <small className="block text-neutral-400">
+            <small className="block text-neutral-900">
               Tip: Hover over the bold times for a full timestamp
             </small>
             <div className="mt-4 space-y-4">
-              <div className="bg-black overflow-hidden rounded-sm">
-                <div className="px-4 sm:px-6 py-2 text-white">
+              <div className="overflow-hidden bg-black rounded-sm">
+                <div className="px-4 py-2 text-white sm:px-6">
                   Your day starts at {convertMinsToHrsMins(user.startTime)}
                 </div>
               </div>
               {availability.map((slot) => (
-                <div key={slot.start} className="bg-neutral-100 overflow-hidden rounded-sm">
-                  <div className="px-4 py-5 sm:p-6 text-black">
+                <div key={slot.start} className="overflow-hidden rounded-sm bg-neutral-100">
+                  <div className="px-4 py-5 text-black sm:p-6">
                     Your calendar shows you as busy between{" "}
                     <span className="font-medium text-neutral-800" title={slot.start}>
                       {dayjs(slot.start).format("HH:mm")}
@@ -91,8 +90,8 @@ export default function Troubleshoot({ user }: inferSSRProps<typeof getServerSid
                 </div>
               ))}
               {availability.length === 0 && <Loader />}
-              <div className="bg-black overflow-hidden rounded-sm">
-                <div className="px-4 sm:px-6 py-2 text-white">
+              <div className="overflow-hidden bg-black rounded-sm">
+                <div className="px-4 py-2 text-white sm:px-6">
                   Your day ends at {convertMinsToHrsMins(user.endTime)}
                 </div>
               </div>

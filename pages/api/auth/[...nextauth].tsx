@@ -156,7 +156,6 @@ export default NextAuth({
             data: {
               title: "Sync Meeting",
               userId: id,
-              length: 45,
               eventName: `${name} <> {USER}`,
               users: {
                 connect: {
@@ -199,7 +198,6 @@ export default NextAuth({
             data: {
               title: "Async Meeting",
               userId: id,
-              length: 10,
               eventName: `[async] ${name} <> {USER}`,
               locations: null,
               users: {

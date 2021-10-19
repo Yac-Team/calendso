@@ -1,3 +1,5 @@
+import base64url from "base64url";
+import { createHmac } from "crypto";
 import merge from "lodash.merge";
 import { NextSeo, NextSeoProps } from "next-seo";
 import React from "react";
@@ -67,11 +69,44 @@ const buildSeoMeta = (pageProps: {
 };
 
 const constructImage = (name: string, avatar: string, description: string): string => {
-  return (
-    encodeURIComponent("Meet **" + name + "** <br>" + description).replace(/'/g, "%27") +
-    ".png?md=1&images=https%3A%2F%2Fmeet.yac.com%2Fyac-logo-white-word.svg&images=" +
-    encodeURIComponent(avatar)
-  );
+  if (process.browser) throw new Error("constructImage should never run in browser");
+  //api_key: your project API key - keep this safe and non-public
+  const api_key = process.env.BB_API_KEY;
+
+  //base: this signed url base
+  const base = `https://ondemand.bannerbear.com/signedurl/${process.env.BB_SIGNED_URL_BASE_ID}/image.jpg`;
+
+  //modifications: grab this JSON from your template API Console and modify as needed
+  const modifications = [
+    {
+      name: "user_image",
+      image_url: avatar,
+    },
+    {
+      name: "subject",
+      text: `Book a meeting with ${name}`,
+      color: null,
+      background: null,
+    },
+    {
+      name: "channel",
+      text: description,
+      color: null,
+      background: null,
+    },
+  ];
+
+  //create the query string
+  const query = "?modifications=" + base64url(JSON.stringify(modifications));
+
+  //calculate the signature
+
+  const signature = createHmac("sha256", api_key as string)
+    .update(base + query)
+    .digest("hex");
+
+  //append the signature
+  return String(query + "&s=" + signature);
 };
 
 export const HeadSeo: React.FC<HeadSeoProps & { children?: never }> = (props) => {
@@ -92,11 +127,24 @@ export const HeadSeo: React.FC<HeadSeoProps & { children?: never }> = (props) =>
   let seoObject = buildSeoMeta({ title: pageTitle, image, description, canonical, siteName });
 
   if (name && avatar) {
-    const pageImage = getSeoImage("ogImage") + constructImage(name, avatar, description);
-    seoObject = buildSeoMeta({ title: pageTitle, description, image: pageImage, canonical, siteName });
+    let pageImage = image;
+    try {
+      pageImage = getSeoImage("ogImage") + constructImage(name, avatar, description);
+    } catch (error) {
+      if (!process.browser) {
+        console.error("Error generating ogImage");
+        console.error({ error });
+      }
+    }
+    seoObject = buildSeoMeta({
+      title: pageTitle,
+      description,
+      image: pageImage,
+      canonical,
+      siteName,
+    });
   }
 
   const seoProps: NextSeoProps = merge(nextSeoProps, seoObject);
-
   return <NextSeo {...seoProps} />;
 };
