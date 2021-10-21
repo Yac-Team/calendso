@@ -192,6 +192,7 @@ export default function Home({ integrations }: InferGetServerSidePropsType<typeo
                         </div>
                       ) : integration.type === "zoom_video" ? (
                         <a
+                          className="cursor-pointer"
                           onClick={() => integrationHandler(integration.type)}
                           target="_blank"
                           rel="noopener noreferrer">
