@@ -9,6 +9,7 @@ import { EventResult } from "@lib/events/EventManager";
 import logger from "@lib/logger";
 
 import { CalendarEvent } from "./calendarClient";
+import { symmetricDecrypt, symmetricEncrypt } from "./crypto";
 import EventAttendeeRescheduledMail from "./emails/EventAttendeeRescheduledMail";
 import EventOrganizerRescheduledMail from "./emails/EventOrganizerRescheduledMail";
 import VideoEventAttendeeMail from "./emails/VideoEventAttendeeMail";
@@ -51,7 +52,10 @@ function handleErrorsRaw(response) {
 }
 
 const zoomAuth = (credential: Credential) => {
-  const credentialKey = credential.key as unknown as ZoomToken;
+  const encryptedCredentialKey = credential.key;
+  const credentialKey = JSON.parse(
+    symmetricDecrypt(encryptedCredentialKey, process.env.CALENDSO_ENCRYPTION_KEY as string)
+  ) as unknown as ZoomToken;
   const isExpired = (expiryDate: number) => expiryDate < +new Date();
   const authHeader =
     "Basic " +
@@ -77,7 +81,10 @@ const zoomAuth = (credential: Credential) => {
             id: credential.id,
           },
           data: {
-            key: responseBody,
+            key: symmetricEncrypt(
+              JSON.stringify(responseBody),
+              process.env.CALENDSO_ENCRYPTION_KEY as string
+            ),
           },
         });
         credentialKey.access_token = responseBody.access_token;

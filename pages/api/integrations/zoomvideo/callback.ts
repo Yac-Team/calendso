@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 import { getSession } from "@lib/auth";
+import { symmetricEncrypt } from "@lib/crypto";
 
 import prisma from "../../../../lib/prisma";
 
@@ -34,7 +35,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   await prisma.credential.create({
     data: {
       type: "zoom_video",
-      key: json,
+      key: symmetricEncrypt(JSON.stringify(json), process.env.CALENDSO_ENCRYPTION_KEY as string),
       userId: session.user.id,
     },
   });
