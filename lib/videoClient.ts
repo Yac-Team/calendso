@@ -51,7 +51,7 @@ function handleErrorsRaw(response) {
   return response.text();
 }
 
-const zoomAuth = (credential: Credential) => {
+export const zoomAuth = (credential: Credential) => {
   const encryptedCredentialKey = credential.key;
   const credentialKey = JSON.parse(
     symmetricDecrypt(encryptedCredentialKey, process.env.CALENDSO_ENCRYPTION_KEY as string)
