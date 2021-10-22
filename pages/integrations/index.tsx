@@ -152,13 +152,15 @@ export default function Home({ integrations }: InferGetServerSidePropsType<typeo
                 .filter((integration) => integration.installed)
                 .map((integration) => {
                   return (
-                    <li key={integration.type} className="flex py-4">
-                      <div className="w-1/12 pt-2 mr-4">
-                        <img className="w-8 h-8 mr-2" src={integration.imageSrc} alt={integration.title} />
-                      </div>
-                      <div className="w-10/12">
-                        <h2 className="font-medium text-gray-900 font-cal">{integration.title}</h2>
-                        <p className="text-sm text-gray-900">{integration.description}</p>
+                    <li key={integration.type} className="flex flex-col py-4 lg:flex-row">
+                      <div className="flex pb-3 lg:pb-0">
+                        <div className="w-1/12 pt-2 mr-4">
+                          <img className="w-8 h-8 mr-2" src={integration.imageSrc} alt={integration.title} />
+                        </div>
+                        <div className="w-10/12">
+                          <h2 className="font-medium text-gray-900 font-cal">{integration.title}</h2>
+                          <p className="text-sm text-gray-900 ">{integration.description}</p>
+                        </div>
                       </div>
                       {integration.type === "google_calendar" ? (
                         <div>
@@ -192,7 +194,7 @@ export default function Home({ integrations }: InferGetServerSidePropsType<typeo
                         </div>
                       ) : integration.type === "zoom_video" ? (
                         <a
-                          className="cursor-pointer"
+                          className="cursor-pointer max-w-[200px]"
                           onClick={() => integrationHandler(integration.type)}
                           target="_blank"
                           rel="noopener noreferrer">
