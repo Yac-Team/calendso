@@ -140,8 +140,8 @@ export default function Onboarding(props: InferGetServerSidePropsType<typeof get
       <li
         onClick={() => handleAddIntegration(integration.type)}
         key={integration.type}
-        className="flex flex-col items-center px-4 py-3 lg:flex-row">
-        <div className="flex pb-3 lg:pb-0">
+        className="flex flex-col items-center px-4 py-3 md:flex-row">
+        <div className="flex pb-3 md:pb-0">
           <div className="w-1/12 mr-4">
             <img className="w-8 h-8 mr-2" src={integration.imageSrc} alt={integration.title} />
           </div>
