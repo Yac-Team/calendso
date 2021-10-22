@@ -71,7 +71,8 @@ export default abstract class EventMail {
    * Sends the email to the event attendant and returns a Promise.
    */
   public sendEmail() {
-    new Promise((resolve, reject) =>
+    console.info("Began sendEmail");
+    return new Promise((resolve, reject) =>
       nodemailer
         .createTransport(this.getMailerOptions().transport)
         .sendMail(this.getNodeMailerPayload(), (error, info) => {
@@ -79,11 +80,11 @@ export default abstract class EventMail {
             this.printNodeMailerError(error);
             reject(new Error(error));
           } else {
+            console.info("Email Sent Successfully");
             resolve(info);
           }
         })
     ).catch((e) => console.error("sendEmail", e));
-    return new Promise((resolve) => resolve("send mail async"));
   }
 
   /**
