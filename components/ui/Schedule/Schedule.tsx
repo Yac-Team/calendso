@@ -314,7 +314,7 @@ const SchedulerForm = ({ schedule = DEFAULT_SCHEDULE, onSubmit }: Props) => {
 
   return (
     <>
-      <form id={SCHEDULE_FORM_ID} onSubmit={handleSubmit} ref={ref} className="divide-y divide-gray-200">
+      <form id={SCHEDULE_FORM_ID} onSubmit={handleSubmit} ref={ref} className="divide-y divide-gray-400">
         {Object.keys(schedule).map((day) => {
           const selected = schedule[day as DayOfWeek] != null;
           return (

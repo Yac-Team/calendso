@@ -69,7 +69,7 @@ export default function EditTeam(props: {
   };
 
   return (
-    <div className="divide-y divide-gray-200 lg:col-span-9">
+    <div className="divide-y divide-gray-400 lg:col-span-9">
       <div className="py-6 lg:pb-8">
         <div className="mb-4">
           <Button
@@ -88,7 +88,7 @@ export default function EditTeam(props: {
           </div>
         </div>
         <hr className="mt-2" />
-        <form className="divide-y divide-gray-200 lg:col-span-9" onSubmit={updateWebhookHandler}>
+        <form className="divide-y divide-gray-400 lg:col-span-9" onSubmit={updateWebhookHandler}>
           <div className="my-4">
             <div className="mb-4">
               <label htmlFor="subUrl" className="block text-sm font-medium text-gray-700">

@@ -94,7 +94,7 @@ export default function Custom404(props) {
               </ul>
             )}
 
-            <ul role="list" className="mt-4 border-gray-200 divide-y divide-gray-200">
+            <ul role="list" className="mt-4 border-gray-200 divide-y divide-gray-400">
               {links.map((link, linkIdx) => (
                 <li key={linkIdx} className="px-4 py-2">
                   <Link href={link.href}>

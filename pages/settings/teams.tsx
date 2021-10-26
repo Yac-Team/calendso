@@ -85,7 +85,7 @@ export default function Teams(props: InferGetServerSidePropsType<typeof getServe
     <Shell heading="Teams" subtitle="Create and manage teams to use collaborative features.">
       <SettingsShell>
         {!editTeamEnabled && (
-          <div className="divide-y divide-gray-200 lg:col-span-9">
+          <div className="divide-y divide-gray-400 lg:col-span-9">
             <div className="py-6 lg:pb-8">
               <div className="flex flex-col justify-between md:flex-row">
                 <div>
@@ -124,7 +124,7 @@ export default function Teams(props: InferGetServerSidePropsType<typeof getServe
                 {!!invites.length && (
                   <div>
                     <h2 className="text-lg font-medium leading-6 text-gray-900 font-cal">Open Invitations</h2>
-                    <ul className="px-4 mt-4 mb-2 bg-white border divide-y divide-gray-200 rounded">
+                    <ul className="px-4 mt-4 mb-2 bg-white border divide-y divide-gray-400 rounded">
                       {invites.map((team: Team) => (
                         <TeamListItem
                           localeProp={locale}

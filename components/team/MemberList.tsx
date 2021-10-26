@@ -21,7 +21,7 @@ export default function MemberList(props: {
 
   return (
     <div>
-      <ul className="px-4 mb-2 bg-white border divide-y divide-gray-200 rounded">
+      <ul className="px-4 mb-2 bg-white border divide-y divide-gray-400 rounded">
         {props.members.map((member) => (
           <MemberListItem
             localeProp={locale}

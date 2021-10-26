@@ -31,7 +31,7 @@ const ErrorDebugPanel: React.FC<{ error: Props["error"]; children?: never }> = (
   return (
     <div className="bg-white shadow overflow-hidden sm:rounded-lg">
       <div className="border-t border-gray-200 px-4 py-5 sm:p-0">
-        <dl className="sm:divide-y sm:divide-gray-200">
+        <dl className="sm:divide-y sm:divide-gray-400">
           {debugMap.map(([key, value]) => {
             if (value !== undefined) {
               return (

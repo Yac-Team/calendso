@@ -147,7 +147,7 @@ export default function Home({ integrations }: InferGetServerSidePropsType<typeo
         <DialogContent>
           <DialogHeader title="Connect a new App" subtitle="Integrate your account with other services." />
           <div className="my-4">
-            <ul className="divide-y divide-gray-200">
+            <ul className="divide-y divide-gray-400">
               {integrations
                 .filter((integration) => integration.installed)
                 .map((integration) => {
@@ -239,7 +239,7 @@ export default function Home({ integrations }: InferGetServerSidePropsType<typeo
           subtitle="If no entry is selected, all calendars will be checked"
         />
         <div className="my-4">
-          <ul className="overflow-y-auto divide-y divide-gray-200 max-h-96">
+          <ul className="overflow-y-auto divide-y divide-gray-400 max-h-96">
             {selectableCalendars.map((calendar) => (
               <li key={calendar.name} className="flex py-4">
                 <div className="w-1/12 pt-2 mr-4">
@@ -415,7 +415,7 @@ export default function Home({ integrations }: InferGetServerSidePropsType<typeo
       <Shell heading="Integrations" subtitle="Connect your favourite apps." CTA={<ConnectNewAppDialog />}>
         <div className="mb-8 overflow-hidden bg-white border border-gray-200 rounded-sm">
           {integrations.filter((ig) => ig.credential).length !== 0 ? (
-            <ul className="divide-y divide-gray-200">
+            <ul className="divide-y divide-gray-400">
               {integrations
                 .filter((ig) => ig.credential)
                 .map((ig) => (

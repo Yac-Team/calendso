@@ -63,7 +63,7 @@ const ChangePasswordSection = ({ localeProp }: { localeProp: string }) => {
       <div className="mt-6">
         <h2 className="font-cal text-lg leading-6 font-medium text-gray-900">{t("change_password")}</h2>
       </div>
-      <form className="divide-y divide-gray-200 lg:col-span-9" onSubmit={changePasswordHandler}>
+      <form className="divide-y divide-gray-400 lg:col-span-9" onSubmit={changePasswordHandler}>
         <div className="py-6 lg:pb-8">
           <div className="flex">
             <div className="w-1/2 mr-2">

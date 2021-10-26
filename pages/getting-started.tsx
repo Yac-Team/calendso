@@ -457,7 +457,7 @@ export default function Onboarding(props: InferGetServerSidePropsType<typeof get
       description:
         "Connect your calendar to automatically check for busy times and new events as they’re scheduled.",
       Component: (
-        <ul className="border border-gray-200 divide-y divide-gray-200 rounded-sm sm:mx-auto sm:w-full">
+        <ul className="border border-gray-200 divide-y divide-gray-400 rounded-sm sm:mx-auto sm:w-full">
           {props.integrations.map((integration) => {
             return <IntegrationGridListItem key={integration.type} integration={integration} />;
           })}

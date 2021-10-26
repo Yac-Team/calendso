@@ -103,7 +103,7 @@ export default function Settings(props: InferGetServerSidePropsType<typeof getSe
   return (
     <Shell heading="Profile" subtitle="Edit your profile information, which shows on your scheduling link.">
       <SettingsShell>
-        <form className="divide-y divide-gray-200 lg:col-span-9" onSubmit={updateProfileHandler}>
+        <form className="divide-y divide-gray-400 lg:col-span-9" onSubmit={updateProfileHandler}>
           {hasErrors && <Alert severity="error" title={errorMessage} />}
           <div className="py-6 lg:pb-8">
             <div className="flex flex-col lg:flex-row">

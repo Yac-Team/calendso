@@ -252,7 +252,7 @@ export default function Embed(props: InferGetServerSidePropsType<typeof getServe
               </div>
             </div>
 
-            <div className="divide-y divide-gray-200 lg:col-span-9">
+            <div className="divide-y divide-gray-400 lg:col-span-9">
               <div className="py-6 lg:pb-8">
                 <div className="flex flex-col justify-between md:flex-row">
                   <div></div>

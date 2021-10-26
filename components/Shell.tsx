@@ -305,7 +305,7 @@ function UserDropdown({ small, bottom }: { small?: boolean; bottom?: boolean }) 
               static
               className={classNames(
                 bottom ? "origin-top top-1 right-0" : "origin-bottom bottom-14 left-0",
-                "w-64 z-10 absolute mt-1 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200 focus:outline-none"
+                "w-64 z-10 absolute mt-1 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-400 focus:outline-none"
               )}>
               <div className="py-1">
                 <a
