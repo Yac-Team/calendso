@@ -1,4 +1,5 @@
 import Document, { DocumentContext, Head, Html, Main, NextScript, DocumentProps } from "next/document";
+import nightwind from "nightwind/helper";
 
 type Props = Record<string, unknown> & DocumentProps;
 
@@ -26,8 +27,9 @@ class MyDocument extends Document<Props> {
             href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap"
             rel="stylesheet"
           />
+          <script dangerouslySetInnerHTML={{ __html: nightwind.init() }} />
         </Head>
-        <body className="bg-gray-100 ">
+        <body className="bg-gray-100">
           <Main />
           <NextScript />
         </body>

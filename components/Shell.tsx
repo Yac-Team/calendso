@@ -141,7 +141,7 @@ export default function Shell(props: {
               <div className="flex flex-col flex-1 pt-5 pb-4 overflow-y-auto">
                 <Link href="/event-types">
                   <a className="px-4">
-                    <Logo small />
+                    <Logo />
                   </a>
                 </Link>
                 <nav className="flex-1 px-2 mt-5 space-y-1 bg-white">

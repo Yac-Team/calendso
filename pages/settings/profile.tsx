@@ -87,6 +87,7 @@ export default function Settings(props: InferGetServerSidePropsType<typeof getSe
         weekStart: asStringOrUndefined(enteredWeekStartDay),
         locale: enteredLanguage,
         asyncUseCalendar: enteredAsyncUseCalendar,
+        theme: selectedTheme ? selectedTheme.value : undefined,
       })
       .then(() => {
         setSuccessModalOpen(true);
@@ -246,24 +247,23 @@ export default function Settings(props: InferGetServerSidePropsType<typeof getSe
                   </div>
                 )}
                 <div>
-                  {Math.random() > 1 && (
-                    <>
-                      <label htmlFor="theme" className="block text-sm font-medium text-gray-700">
-                        Single Theme
-                      </label>
-                      <div className="my-1">
-                        <Select
-                          id="theme"
-                          isDisabled={!selectedTheme}
-                          defaultValue={selectedTheme || themeOptions[0]}
-                          value={selectedTheme || themeOptions[0]}
-                          onChange={setSelectedTheme}
-                          className="block w-full mt-1 border-gray-300 rounded-sm shadow-sm focus:ring-neutral-500 focus:border-neutral-500 sm:text-sm"
-                          options={themeOptions}
-                        />
-                      </div>
-                    </>
-                  )}
+                  <>
+                    <label htmlFor="theme" className="block text-sm font-medium text-gray-700">
+                      Single Theme
+                    </label>
+                    <div className="my-1">
+                      <Select
+                        id="theme"
+                        isDisabled={!selectedTheme}
+                        defaultValue={selectedTheme || themeOptions[0]}
+                        value={selectedTheme || themeOptions[0]}
+                        onChange={setSelectedTheme}
+                        className="block w-full mt-1 border-gray-300 rounded-sm shadow-sm focus:ring-neutral-500 focus:border-neutral-500 sm:text-sm"
+                        options={themeOptions}
+                      />
+                    </div>
+                  </>
+
                   <div className="relative flex items-start mt-8">
                     <div className="flex items-center h-5">
                       <input

@@ -72,6 +72,7 @@
     "next-i18next": "^8.8.0",
     "next-seo": "^4.26.0",
     "next-transpile-modules": "^8.0.0",
+    "nightwind": "^1.1.12",
     "nodemailer": "^6.6.3",
     "otplib": "^12.0.1",
     "qrcode": "^1.4.4",
