@@ -129,7 +129,7 @@ export default function EditTeam(props: {
   };
 
   return (
-    <div className="divide-y divide-gray-200 lg:col-span-9">
+    <div className="divide-y divide-gray-400 lg:col-span-9">
       <div className="py-6 lg:pb-8">
         <div className="mb-4">
           <Button
@@ -151,7 +151,7 @@ export default function EditTeam(props: {
         </div>
         <hr className="mt-2" />
         <h3 className="font-bold leading-6 text-gray-900 font-cal mt-7 text-md">{t("profile")}</h3>
-        <form className="divide-y divide-gray-200 lg:col-span-9" onSubmit={updateTeamHandler}>
+        <form className="divide-y divide-gray-400 lg:col-span-9" onSubmit={updateTeamHandler}>
           {hasErrors && <ErrorAlert message={errorMessage} />}
           <div className="py-6 lg:pb-8">
             <div className="flex flex-col lg:flex-row">

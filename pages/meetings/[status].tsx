@@ -33,8 +33,8 @@ export default function Bookings(props) {
                 query={query}
                 success={({ data }) => (
                   <div className="my-6 overflow-hidden border border-b border-gray-200 rounded-sm">
-                    <table className="min-w-full divide-y divide-gray-200">
-                      <tbody className="bg-white divide-y divide-gray-200" data-testid="bookings">
+                    <table className="min-w-full divide-y divide-gray-400">
+                      <tbody className="bg-white divide-y divide-gray-400" data-testid="bookings">
                         {data.map((booking) => (
                           <BookingListItem key={booking.id} {...booking} />
                         ))}

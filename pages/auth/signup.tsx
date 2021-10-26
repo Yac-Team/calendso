@@ -82,7 +82,7 @@ export default function Signup(props: InferGetServerSidePropsType<typeof getServ
                   disabled={!!props.email}
                   readOnly={!!props.email}
                   value={props.email}
-                  className="block w-full px-3 py-2 mt-1 text-gray-900 placeholder-gray-600 bg-gray-300 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm"
+                  className="block w-full px-3 py-2 mt-1 text-gray-900 placeholder-gray-600 bg-gray-300 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow focus:border-yellow sm:text-sm"
                 />
               </div>
               <div className="mb-2">
@@ -95,7 +95,7 @@ export default function Signup(props: InferGetServerSidePropsType<typeof getServ
                   id="password"
                   required
                   placeholder="•••••••••••••"
-                  className="block w-full px-3 py-2 mt-1 text-gray-900 placeholder-gray-600 bg-gray-300 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm"
+                  className="block w-full px-3 py-2 mt-1 text-gray-900 placeholder-gray-600 bg-gray-300 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow focus:border-yellow sm:text-sm"
                 />
               </div>
               <div>
@@ -108,7 +108,7 @@ export default function Signup(props: InferGetServerSidePropsType<typeof getServ
                   id="passwordcheck"
                   required
                   placeholder="•••••••••••••"
-                  className="block w-full px-3 py-2 mt-1 text-gray-900 placeholder-gray-600 bg-gray-300 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm"
+                  className="block w-full px-3 py-2 mt-1 text-gray-900 placeholder-gray-600 bg-gray-300 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow focus:border-yellow sm:text-sm"
                 />
               </div>
             </div>
@@ -116,7 +116,7 @@ export default function Signup(props: InferGetServerSidePropsType<typeof getServ
               <input
                 type="submit"
                 value="Create Account"
-                className="inline-flex justify-center w-7/12 px-4 py-2 mr-2 text-base font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm cursor-pointer btn btn-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black sm:text-sm"
+                className="inline-flex justify-center w-7/12 px-4 py-2 mr-2 text-base font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm cursor-pointer btn btn-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow sm:text-sm"
               />
               <a
                 onClick={() => signIn("Cal.com", { callbackUrl: (router.query.callbackUrl || "") as string })}

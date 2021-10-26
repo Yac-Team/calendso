@@ -57,7 +57,7 @@ const TableActions: FC<Props> = ({ actions }) => {
               leaveTo="transform opacity-0 scale-95">
               <Menu.Items
                 static
-                className="origin-top-right absolute right-0 mt-2 w-56 rounded-sm shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none divide-y divide-neutral-100">
+                className="origin-top-right absolute right-0 mt-2 w-56 rounded-sm shadow-lg bg-white ring-1 ring-yellow ring-opacity-5 focus:outline-none divide-y divide-neutral-100">
                 <div className="py-1">
                   {actions.map((action) => {
                     const Element = typeof action.onClick === "function" ? "span" : "a";

@@ -49,7 +49,7 @@ export default function Custom404(props) {
       <div className="min-h-screen px-4 bg-white">
         <main className="max-w-xl pt-16 pb-6 mx-auto sm:pt-24">
           <div className="text-center">
-            <p className="text-sm font-semibold tracking-wide text-black uppercase">404 error</p>
+            <p className="text-sm font-semibold tracking-wide text-yellow uppercase">404 error</p>
             <h1 className="mt-2 text-4xl font-extrabold tracking-tight text-gray-900 font-cal sm:text-5xl">
               This page does not exist.
             </h1>
@@ -94,7 +94,7 @@ export default function Custom404(props) {
               </ul>
             )}
 
-            <ul role="list" className="mt-4 border-gray-200 divide-y divide-gray-200">
+            <ul role="list" className="mt-4 border-gray-200 divide-y divide-gray-400">
               {links.map((link, linkIdx) => (
                 <li key={linkIdx} className="px-4 py-2">
                   <Link href={link.href}>
@@ -159,7 +159,7 @@ export default function Custom404(props) {
             </ul>
             <div className="mt-8">
               <Link href="/">
-                <a className="text-base font-medium text-black hover:text-gray-500">
+                <a className="text-base font-medium text-yellow hover:text-gray-500">
                   Or go back home<span aria-hidden="true"> &rarr;</span>
                 </a>
               </Link>

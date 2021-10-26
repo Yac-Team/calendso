@@ -31,13 +31,13 @@ const ErrorDebugPanel: React.FC<{ error: Props["error"]; children?: never }> = (
   return (
     <div className="bg-white shadow overflow-hidden sm:rounded-lg">
       <div className="border-t border-gray-200 px-4 py-5 sm:p-0">
-        <dl className="sm:divide-y sm:divide-gray-200">
+        <dl className="sm:divide-y sm:divide-gray-400">
           {debugMap.map(([key, value]) => {
             if (value !== undefined) {
               return (
                 <div key={key} className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                  <dt className="text-sm font-bold text-black">{key}</dt>
-                  <dd className="mt-1 text-sm text-black sm:mt-0 sm:col-span-2">{value}</dd>
+                  <dt className="text-sm font-bold text-yellow">{key}</dt>
+                  <dd className="mt-1 text-sm text-yellow sm:mt-0 sm:col-span-2">{value}</dd>
                 </div>
               );
             }
@@ -56,7 +56,7 @@ export const ErrorPage: React.FC<Props> = (props) => {
       <div className="bg-white min-h-screen px-4">
         <main className="max-w-xl mx-auto pb-6 pt-16 sm:pt-24">
           <div className="text-center">
-            <p className="text-sm font-semibold text-black uppercase tracking-wide">{statusCode}</p>
+            <p className="text-sm font-semibold text-yellow uppercase tracking-wide">{statusCode}</p>
             <h1 className="mt-2 text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl">
               {message}
             </h1>

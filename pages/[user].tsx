@@ -44,8 +44,8 @@ export default function User(props: InferGetServerSidePropsType<typeof getServer
               {eventTypes.map((type) => (
                 <div
                   key={type.id}
-                  className="relative bg-white border rounded-sm group :border-neutral-600 hover:bg-gray-50 border-neutral-200 hover:border-black">
-                  <ArrowRightIcon className="absolute w-4 h-4 text-black transition-opacity opacity-0 right-3 top-3 group-hover:opacity-100" />
+                  className="relative bg-white border rounded-sm group :border-neutral-600 hover:bg-gray-50 border-neutral-200 hover:border-yellow">
+                  <ArrowRightIcon className="absolute w-4 h-4 text-yellow transition-opacity opacity-0 right-3 top-3 group-hover:opacity-100" />
                   <Link href={`/${user.username}/${type.slug}`}>
                     <a className="block px-6 py-4">
                       <h2 className="font-semibold text-neutral-900 ">{type.title}</h2>

@@ -4,8 +4,8 @@ import React from "react";
 const TwoFactorModalHeader = ({ title, description }: { title: string; description: string }) => {
   return (
     <div className="mb-4 sm:flex sm:items-start">
-      <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 mx-auto bg-black rounded-full bg-opacity-5 sm:mx-0 sm:h-10 sm:w-10">
-        <ShieldCheckIcon className="w-6 h-6 text-black" />
+      <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 mx-auto bg-yellow rounded-full bg-opacity-5 sm:mx-0 sm:h-10 sm:w-10">
+        <ShieldCheckIcon className="w-6 h-6 text-yellow" />
       </div>
       <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
         <h3 className="font-cal text-lg font-medium leading-6 text-gray-900" id="modal-title">

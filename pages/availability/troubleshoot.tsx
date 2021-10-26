@@ -69,14 +69,14 @@ export default function Troubleshoot({ user }: InferGetServerSidePropsType<typeo
               Tip: Hover over the bold times for a full timestamp
             </small>
             <div className="mt-4 space-y-4">
-              <div className="overflow-hidden bg-black rounded-sm">
+              <div className="overflow-hidden bg-yellow rounded-sm">
                 <div className="px-4 py-2 text-white sm:px-6">
                   Your day starts at {convertMinsToHrsMins(user.startTime)}
                 </div>
               </div>
               {availability.map((slot) => (
                 <div key={slot.start} className="overflow-hidden rounded-sm bg-neutral-100">
-                  <div className="px-4 py-5 text-black sm:p-6">
+                  <div className="px-4 py-5 text-yellow sm:p-6">
                     Your calendar shows you as busy between{" "}
                     <span className="font-medium text-neutral-800" title={slot.start}>
                       {dayjs(slot.start).format("HH:mm")}
@@ -90,7 +90,7 @@ export default function Troubleshoot({ user }: InferGetServerSidePropsType<typeo
                 </div>
               ))}
               {availability.length === 0 && <Loader />}
-              <div className="overflow-hidden bg-black rounded-sm">
+              <div className="overflow-hidden bg-yellow rounded-sm">
                 <div className="px-4 py-2 text-white sm:px-6">
                   Your day ends at {convertMinsToHrsMins(user.endTime)}
                 </div>

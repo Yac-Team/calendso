@@ -6,6 +6,7 @@ import utc from "dayjs/plugin/utc";
 import { useEffect, useState } from "react";
 
 import classNames from "@lib/classNames";
+import useDarkMode from "@lib/core/browser/useDarkMode";
 import { useLocale } from "@lib/hooks/useLocale";
 import getSlots from "@lib/slots";
 
@@ -30,6 +31,7 @@ const DatePicker = ({
 }) => {
   const { t } = useLocale({ localeProp: localeProp });
   const [days, setDays] = useState<({ disabled: boolean; date: number } | null)[]>([]);
+  const { isDarkMode } = useDarkMode();
 
   const [selectedMonth, setSelectedMonth] = useState<number | null>(
     date
@@ -144,14 +146,14 @@ const DatePicker = ({
             onClick={decrementMonth}
             className={"group mr-2 p-1" + (selectedMonth <= dayjs().month() && "text-gray-400 ")}
             disabled={selectedMonth <= dayjs().month()}>
-            <ChevronLeftIcon className="w-5 h-5 group-hover:text-black :text-white" />
+            <ChevronLeftIcon className="w-5 h-5 group-hover:text-yellow :text-white" />
           </button>
           <button className="p-1 group" onClick={incrementMonth}>
-            <ChevronRightIcon className="w-5 h-5 group-hover:text-black " />
+            <ChevronRightIcon className="w-5 h-5 group-hover:text-yellow " />
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-7 gap-4 text-center border-t border-b  sm:border-0">
+      <div className="grid grid-cols-7 gap-4 text-center border-t border-b sm:border-0">
         {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
           .sort((a, b) => (weekStart.startsWith(a) ? -1 : weekStart.startsWith(b) ? 1 : 0))
           .map((weekDay) => (
@@ -181,7 +183,9 @@ const DatePicker = ({
                     ? "text-gray-400 font-light hover:border-0 cursor-default"
                     : " text-primary-500 font-medium",
                   date && date.isSame(inviteeDate().date(day.date), "day")
-                    ? "bg-black text-white-important"
+                    ? isDarkMode
+                      ? "bg-black text-black-important"
+                      : "bg-black text-white-important"
                     : !day.disabled
                     ? " bg-gray-100 "
                     : ""

@@ -63,7 +63,7 @@ const ChangePasswordSection = ({ localeProp }: { localeProp: string }) => {
       <div className="mt-6">
         <h2 className="font-cal text-lg leading-6 font-medium text-gray-900">{t("change_password")}</h2>
       </div>
-      <form className="divide-y divide-gray-200 lg:col-span-9" onSubmit={changePasswordHandler}>
+      <form className="divide-y divide-gray-400 lg:col-span-9" onSubmit={changePasswordHandler}>
         <div className="py-6 lg:pb-8">
           <div className="flex">
             <div className="w-1/2 mr-2">
@@ -78,7 +78,7 @@ const ChangePasswordSection = ({ localeProp }: { localeProp: string }) => {
                   name="current_password"
                   id="current_password"
                   required
-                  className="shadow-sm focus:ring-black focus:border-black block w-full sm:text-sm border-gray-300 rounded-sm"
+                  className="shadow-sm focus:ring-yellow focus:border-yellow block w-full sm:text-sm border-gray-300 rounded-sm"
                   placeholder={t("your_old_password")}
                 />
               </div>
@@ -95,7 +95,7 @@ const ChangePasswordSection = ({ localeProp }: { localeProp: string }) => {
                   value={newPassword}
                   required
                   onInput={(e) => setNewPassword(e.currentTarget.value)}
-                  className="shadow-sm focus:ring-black focus:border-black block w-full sm:text-sm border-gray-300 rounded-sm"
+                  className="shadow-sm focus:ring-yellow focus:border-yellow block w-full sm:text-sm border-gray-300 rounded-sm"
                   placeholder={t("super_secure_new_password")}
                 />
               </div>
@@ -105,7 +105,7 @@ const ChangePasswordSection = ({ localeProp }: { localeProp: string }) => {
           <div className="py-8 flex justify-end">
             <button
               type="submit"
-              className="ml-2 bg-neutral-900 border border-transparent rounded-sm shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
+              className="ml-2 bg-neutral-900 border border-transparent rounded-sm shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow">
               {t("save")}
             </button>
           </div>

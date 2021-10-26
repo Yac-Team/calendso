@@ -123,7 +123,7 @@ export default function Embed(props: InferGetServerSidePropsType<typeof getServe
                 <div className="mt-1">
                   <textarea
                     id="iframe"
-                    className="block w-full h-32 border-gray-300 rounded-sm shadow-sm focus:ring-black focus:border-black sm:text-sm"
+                    className="block w-full h-32 border-gray-300 rounded-sm shadow-sm focus:ring-yellow focus:border-yellow sm:text-sm"
                     placeholder="Loading..."
                     defaultValue={iframeTemplate}
                     readOnly
@@ -137,7 +137,7 @@ export default function Embed(props: InferGetServerSidePropsType<typeof getServe
                 <div className="mt-1">
                   <textarea
                     id="fullscreen"
-                    className="block w-full h-32 border-gray-300 rounded-sm shadow-sm focus:ring-black focus:border-black sm:text-sm"
+                    className="block w-full h-32 border-gray-300 rounded-sm shadow-sm focus:ring-yellow focus:border-yellow sm:text-sm"
                     placeholder="Loading..."
                     defaultValue={htmlTemplate}
                     readOnly
@@ -252,7 +252,7 @@ export default function Embed(props: InferGetServerSidePropsType<typeof getServe
               </div>
             </div>
 
-            <div className="divide-y divide-gray-200 lg:col-span-9">
+            <div className="divide-y divide-gray-400 lg:col-span-9">
               <div className="py-6 lg:pb-8">
                 <div className="flex flex-col justify-between md:flex-row">
                   <div></div>

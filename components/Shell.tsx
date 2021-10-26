@@ -141,7 +141,7 @@ export default function Shell(props: {
               <div className="flex flex-col flex-1 pt-5 pb-4 overflow-y-auto">
                 <Link href="/event-types">
                   <a className="px-4">
-                    <Logo small />
+                    <Logo />
                   </a>
                 </Link>
                 <nav className="flex-1 px-2 mt-5 space-y-1 bg-white">
@@ -186,7 +186,7 @@ export default function Shell(props: {
                 </a>
               </Link>
               <div className="flex items-center self-center gap-3">
-                <button className="p-2 text-gray-400 bg-white rounded-full hover:text-gray-500 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
+                <button className="p-2 text-gray-400 bg-white rounded-full hover:text-gray-500 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow">
                   <span className="sr-only">View notifications</span>
                   <Link href="/settings/profile">
                     <a>
@@ -305,7 +305,7 @@ function UserDropdown({ small, bottom }: { small?: boolean; bottom?: boolean }) 
               static
               className={classNames(
                 bottom ? "origin-top top-1 right-0" : "origin-bottom bottom-14 left-0",
-                "w-64 z-10 absolute mt-1 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200 focus:outline-none"
+                "w-64 z-10 absolute mt-1 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-400 focus:outline-none"
               )}>
               <div className="py-1">
                 <a

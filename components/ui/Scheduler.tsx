@@ -110,7 +110,7 @@ export const Scheduler = ({
                 id="timeZone"
                 value={{ value: selectedTimeZone }}
                 onChange={(tz) => setTimeZone(tz.value)}
-                className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black sm:text-sm"
+                className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-yellow focus:border-yellow sm:text-sm"
               />
             </div>
           </div>

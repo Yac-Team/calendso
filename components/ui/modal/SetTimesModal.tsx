@@ -68,7 +68,7 @@ export default function SetTimesModal(props) {
         <div className="inline-block px-4 pt-5 pb-4 overflow-hidden text-left align-bottom transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
           <div className="mb-4 sm:flex sm:items-start">
             <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 mx-auto bg-gray-900 rounded-full sm:mx-0 sm:h-10 sm:w-10">
-              <ClockIcon className="w-6 h-6 text-black" />
+              <ClockIcon className="w-6 h-6 text-yellow" />
             </div>
             <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
               <h3 className="text-lg font-medium leading-6 text-gray-900" id="modal-title">
@@ -93,7 +93,7 @@ export default function SetTimesModal(props) {
                 maxLength="2"
                 name="hours"
                 id="startHours"
-                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black sm:text-sm"
+                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-yellow focus:border-yellow sm:text-sm"
                 placeholder="9"
                 defaultValue={startHours}
               />
@@ -112,7 +112,7 @@ export default function SetTimesModal(props) {
                 maxLength="2"
                 name="minutes"
                 id="startMinutes"
-                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black sm:text-sm"
+                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-yellow focus:border-yellow sm:text-sm"
                 placeholder="30"
                 defaultValue={startMinutes}
               />
@@ -123,7 +123,7 @@ export default function SetTimesModal(props) {
                 AM/PM
               </label>
               <select
-                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black sm:text-sm"
+                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-yellow focus:border-yellow sm:text-sm"
                 name="AMPM"
                 value={String(startIsPM)}
                 onChange={(e) => {
@@ -149,7 +149,7 @@ export default function SetTimesModal(props) {
                 maxLength="2"
                 name="hours"
                 id="endHours"
-                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black sm:text-sm"
+                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-yellow focus:border-yellow sm:text-sm"
                 placeholder="17"
                 defaultValue={endHours}
               />
@@ -168,7 +168,7 @@ export default function SetTimesModal(props) {
                 step="15"
                 name="minutes"
                 id="endMinutes"
-                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black sm:text-sm"
+                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-yellow focus:border-yellow sm:text-sm"
                 placeholder="30"
                 defaultValue={endMinutes}
               />
@@ -179,7 +179,7 @@ export default function SetTimesModal(props) {
                 AM/PM
               </label>
               <select
-                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black sm:text-sm"
+                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-yellow focus:border-yellow sm:text-sm"
                 name="AMPM"
                 value={String(endIsPM)}
                 onChange={(e) => {

@@ -190,8 +190,8 @@ const EventTypesPage = (props: InferGetServerSidePropsType<typeof getServerSideP
                         href={`${process.env.NEXT_PUBLIC_APP_URL}/${profile.slug}/${type.slug}`}
                         target="_blank"
                         rel="noreferrer"
-                        className="btn-icon hover:text-black">
-                        <ExternalLinkIcon className="w-5 h-5 group-hover:text-black" />
+                        className="btn-icon hover:text-yellow">
+                        <ExternalLinkIcon className="w-5 h-5 group-hover:text-yellow" />
                       </a>
                     </Tooltip>
 
@@ -204,7 +204,7 @@ const EventTypesPage = (props: InferGetServerSidePropsType<typeof getServerSideP
                           );
                         }}
                         className="btn-icon">
-                        <LinkIcon className="w-5 h-5 group-hover:text-black" />
+                        <LinkIcon className="w-5 h-5 group-hover:text-yellow" />
                       </button>
                     </Tooltip>
                   </div>
@@ -232,7 +232,7 @@ const EventTypesPage = (props: InferGetServerSidePropsType<typeof getServerSideP
                         leaveTo="transform opacity-0 scale-95">
                         <Menu.Items
                           static
-                          className="absolute right-0 z-10 w-56 mt-2 origin-top-right bg-white divide-y rounded-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none divide-neutral-100">
+                          className="absolute right-0 z-10 w-56 mt-2 origin-top-right bg-white divide-y rounded-sm shadow-lg ring-1 ring-yellow ring-opacity-5 focus:outline-none divide-neutral-100">
                           <div className="py-1">
                             <Menu.Item>
                               {({ active }) => (
@@ -245,7 +245,7 @@ const EventTypesPage = (props: InferGetServerSidePropsType<typeof getServerSideP
                                     "group flex items-center px-4 py-2 text-sm font-medium"
                                   )}>
                                   <ExternalLinkIcon
-                                    className="w-4 h-4 mr-3 text-neutral-100 group-hover:text-black"
+                                    className="w-4 h-4 mr-3 text-neutral-100 group-hover:text-yellow"
                                     aria-hidden="true"
                                   />
                                   {t("preview")}

@@ -323,7 +323,7 @@ const EventTypePage = (props: InferGetServerSidePropsType<typeof getServerSidePr
               name="title"
               id="title"
               required
-              className="w-full pl-0 text-xl font-bold text-gray-900 bg-transparent border-none cursor-pointer focus:text-black hover:text-gray-700 focus:ring-0 focus:outline-none"
+              className="w-full pl-0 text-xl font-bold text-gray-900 bg-transparent border-none cursor-pointer focus:text-yellow hover:text-gray-700 focus:ring-0 focus:outline-none"
               placeholder="Quick Chat"
               defaultValue={eventType.title}
             />

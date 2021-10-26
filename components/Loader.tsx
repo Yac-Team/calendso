@@ -1,7 +1,7 @@
 export default function Loader() {
   return (
-    <div className="border-black loader ">
-      <span className="bg-black loader-inner "></span>
+    <div className="border-yellow loader ">
+      <span className="bg-yellow loader-inner "></span>
     </div>
   );
 }

@@ -283,7 +283,7 @@ const SchedulerForm = ({ schedule = DEFAULT_SCHEDULE, onSubmit }: Props) => {
                 checked={selected}
                 onChange={handleSelectedChange}
                 type="checkbox"
-                className="w-4 h-4 border-gray-300 rounded-sm hover:checked:bg-black checked:bg-black focus:ring-neutral-500 text-neutral-900"
+                className="w-4 h-4 border-gray-300 rounded-sm hover:checked:bg-yellow checked:bg-yellow focus:ring-neutral-500 text-neutral-900"
               />
               <Text variant="overline">{day}</Text>
             </div>
@@ -314,7 +314,7 @@ const SchedulerForm = ({ schedule = DEFAULT_SCHEDULE, onSubmit }: Props) => {
 
   return (
     <>
-      <form id={SCHEDULE_FORM_ID} onSubmit={handleSubmit} ref={ref} className="divide-y divide-gray-200">
+      <form id={SCHEDULE_FORM_ID} onSubmit={handleSubmit} ref={ref} className="divide-y divide-gray-400">
         {Object.keys(schedule).map((day) => {
           const selected = schedule[day as DayOfWeek] != null;
           return (

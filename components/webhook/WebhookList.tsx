@@ -9,7 +9,7 @@ export default function WebhookList(props: {
 }) {
   return (
     <div>
-      <ul className="px-4 mb-2 bg-white border divide-y divide-gray-200 rounded">
+      <ul className="px-4 mb-2 bg-white border divide-y divide-gray-400 rounded">
         {props.webhooks.map((webhook: Webhook) => (
           <WebhookListItem
             onChange={props.onChange}
