@@ -26,7 +26,7 @@ export default function Login({ csrfToken }) {
           <button
             onClick={() => signIn("yac", { callbackUrl })}
             style={{ alignItems: "center" }}
-            className="flex justify-between w-full px-1 py-1 text-sm font-medium text-white align-middle border border-transparent rounded-sm shadow-sm bg-neutral-900 hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
+            className="flex justify-between w-full px-1 py-1 text-sm font-medium text-white align-middle border border-transparent rounded-sm shadow-sm bg-neutral-900 hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow">
             <img src="/yac-logo-3d.png" width="42px" alt="Yac logo" style={{ borderRadius: 2 }} />
             <div className="flex justify-center w-full align-middle">Sign in with Yac</div>
             <div style={{ width: 50 }}></div>

@@ -107,7 +107,7 @@ export default function Teams(props: InferGetServerSidePropsType<typeof getServe
                     type="button"
                     onClick={() => setShowCreateTeamModal(true)}
                     className="btn btn-white">
-                    <PlusIcon className="group-hover:text-black text-gray-700 w-3.5 h-3.5 mr-2 inline-block" />
+                    <PlusIcon className="group-hover:text-yellow text-gray-700 w-3.5 h-3.5 mr-2 inline-block" />
                     New Team
                   </Button>
                 </div>

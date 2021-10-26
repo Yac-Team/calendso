@@ -125,7 +125,7 @@ export default function Settings(props: InferGetServerSidePropsType<typeof getSe
                       autoComplete="given-name"
                       placeholder="Your name"
                       required
-                      className="block w-full px-3 py-2 mt-1 text-gray-900 placeholder-gray-600 bg-gray-300 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm"
+                      className="block w-full px-3 py-2 mt-1 text-gray-900 placeholder-gray-600 bg-gray-300 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow focus:border-yellow sm:text-sm"
                       defaultValue={props.user.name}
                     />
                   </div>
@@ -166,7 +166,7 @@ export default function Settings(props: InferGetServerSidePropsType<typeof getSe
                       placeholder="A little something about yourself."
                       rows={3}
                       defaultValue={props.user.bio}
-                      className="block w-full px-3 py-2 mt-1 text-gray-900 placeholder-gray-600 bg-gray-300 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm"></textarea>
+                      className="block w-full px-3 py-2 mt-1 text-gray-900 placeholder-gray-600 bg-gray-300 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow focus:border-yellow sm:text-sm"></textarea>
                   </div>
                 </div>
                 <div>
@@ -272,7 +272,7 @@ export default function Settings(props: InferGetServerSidePropsType<typeof getSe
                         type="checkbox"
                         onChange={(e) => setAsyncUseCalendar({ value: e.target.checked })}
                         defaultChecked={asyncUseCalendar.value}
-                        className="w-4 h-4 border-gray-300 rounded-sm hover:checked:bg-black checked:bg-black focus:ring-neutral-500 text-neutral-900"
+                        className="w-4 h-4 border-gray-300 rounded-sm hover:checked:bg-yellow checked:bg-yellow focus:ring-neutral-500 text-neutral-900"
                       />
                     </div>
                     <div className="ml-3 text-sm">

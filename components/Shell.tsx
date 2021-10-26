@@ -186,7 +186,7 @@ export default function Shell(props: {
                 </a>
               </Link>
               <div className="flex items-center self-center gap-3">
-                <button className="p-2 text-gray-400 bg-white rounded-full hover:text-gray-500 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
+                <button className="p-2 text-gray-400 bg-white rounded-full hover:text-gray-500 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow">
                   <span className="sr-only">View notifications</span>
                   <Link href="/settings/profile">
                     <a>

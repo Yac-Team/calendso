@@ -123,7 +123,7 @@ export default function Embed(props: InferGetServerSidePropsType<typeof getServe
                 <div className="mt-1">
                   <textarea
                     id="iframe"
-                    className="block w-full h-32 border-gray-300 rounded-sm shadow-sm focus:ring-black focus:border-black sm:text-sm"
+                    className="block w-full h-32 border-gray-300 rounded-sm shadow-sm focus:ring-yellow focus:border-yellow sm:text-sm"
                     placeholder="Loading..."
                     defaultValue={iframeTemplate}
                     readOnly
@@ -137,7 +137,7 @@ export default function Embed(props: InferGetServerSidePropsType<typeof getServe
                 <div className="mt-1">
                   <textarea
                     id="fullscreen"
-                    className="block w-full h-32 border-gray-300 rounded-sm shadow-sm focus:ring-black focus:border-black sm:text-sm"
+                    className="block w-full h-32 border-gray-300 rounded-sm shadow-sm focus:ring-yellow focus:border-yellow sm:text-sm"
                     placeholder="Loading..."
                     defaultValue={htmlTemplate}
                     readOnly

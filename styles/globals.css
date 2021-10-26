@@ -364,6 +364,10 @@ table tbody tr:nth-child(odd) {
   color: white !important;
 }
 
+.text-black-important {
+  color: #111 !important;
+}
+
 @layer utilities {
   .transition-max-width {
     -webkit-transition-property: max-width;

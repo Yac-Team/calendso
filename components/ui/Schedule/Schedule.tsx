@@ -283,7 +283,7 @@ const SchedulerForm = ({ schedule = DEFAULT_SCHEDULE, onSubmit }: Props) => {
                 checked={selected}
                 onChange={handleSelectedChange}
                 type="checkbox"
-                className="w-4 h-4 border-gray-300 rounded-sm hover:checked:bg-black checked:bg-black focus:ring-neutral-500 text-neutral-900"
+                className="w-4 h-4 border-gray-300 rounded-sm hover:checked:bg-yellow checked:bg-yellow focus:ring-neutral-500 text-neutral-900"
               />
               <Text variant="overline">{day}</Text>
             </div>

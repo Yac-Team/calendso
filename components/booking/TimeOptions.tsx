@@ -70,7 +70,7 @@ const TimeOptions: FC<Props> = (props) => {
         id="timeZone"
         value={selectedTimeZone}
         onChange={(tz: ITimezoneOption) => setSelectedTimeZone(tz.value)}
-        className="block w-full mt-1 mb-2 border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black sm:text-sm"
+        className="block w-full mt-1 mb-2 border-gray-300 rounded-md shadow-sm focus:ring-yellow focus:border-yellow sm:text-sm"
       />
     </div>
   ) : null;

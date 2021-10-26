@@ -272,7 +272,7 @@ const BookingPage = (props: BookingPageProps) => {
                         name="topic"
                         id="topic"
                         required
-                        className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black sm:text-sm"
+                        className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-yellow focus:border-yellow sm:text-sm"
                         placeholder="Important stuff"
                       />
                     </div>
@@ -287,7 +287,7 @@ const BookingPage = (props: BookingPageProps) => {
                         name="name"
                         id="name"
                         required
-                        className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black sm:text-sm"
+                        className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-yellow focus:border-yellow sm:text-sm"
                         placeholder="John Doe"
                         defaultValue={props.booking ? props.booking.attendees[0].name : ""}
                       />
@@ -304,7 +304,7 @@ const BookingPage = (props: BookingPageProps) => {
                         id="email"
                         inputMode="email"
                         required
-                        className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black sm:text-sm"
+                        className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-yellow focus:border-yellow sm:text-sm"
                         placeholder="you@example.com"
                         defaultValue={props.booking ? props.booking.attendees[0].email : ""}
                       />
@@ -319,7 +319,7 @@ const BookingPage = (props: BookingPageProps) => {
                             type="radio"
                             required
                             onChange={(e) => setSelectedLocation(e.target.value)}
-                            className="w-4 h-4 mr-2 text-black border-gray-300 location focus:ring-black"
+                            className="w-4 h-4 mr-2 border-gray-300 text-yellow location focus:ring-yellow"
                             name="location"
                             value={location.type}
                             checked={selectedLocation === location.type}
@@ -340,7 +340,7 @@ const BookingPage = (props: BookingPageProps) => {
                           placeholder={t("enter_phone_number")}
                           id="phone"
                           required
-                          className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black sm:text-sm"
+                          className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-yellow focus:border-yellow sm:text-sm"
                           onChange={() => {
                             /* DO NOT REMOVE: Callback required by PhoneInput, comment added to satisfy eslint:no-empty-function */
                           }}
@@ -366,7 +366,7 @@ const BookingPage = (props: BookingPageProps) => {
                               id={"custom_" + input.id}
                               required={input.required}
                               rows={3}
-                              className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black sm:text-sm"
+                              className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-yellow focus:border-yellow sm:text-sm"
                               placeholder={input.placeholder}
                             />
                           )}
@@ -376,7 +376,7 @@ const BookingPage = (props: BookingPageProps) => {
                               name={"custom_" + input.id}
                               id={"custom_" + input.id}
                               required={input.required}
-                              className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black sm:text-sm"
+                              className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-yellow focus:border-yellow sm:text-sm"
                               placeholder={input.placeholder}
                             />
                           )}
@@ -386,7 +386,7 @@ const BookingPage = (props: BookingPageProps) => {
                               name={"custom_" + input.id}
                               id={"custom_" + input.id}
                               required={input.required}
-                              className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black sm:text-sm"
+                              className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-yellow focus:border-yellow sm:text-sm"
                               placeholder=""
                             />
                           )}
@@ -396,7 +396,7 @@ const BookingPage = (props: BookingPageProps) => {
                                 type="checkbox"
                                 name={"custom_" + input.id}
                                 id={"custom_" + input.id}
-                                className="w-4 h-4 mr-2 text-black border-gray-300 rounded focus:ring-black"
+                                className="w-4 h-4 mr-2 border-gray-300 rounded text-yellow focus:ring-yellow"
                                 placeholder=""
                                 required={input.required}
                               />
@@ -459,7 +459,7 @@ const BookingPage = (props: BookingPageProps) => {
                       name="notes"
                       id="notes"
                       rows={3}
-                      className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black sm:text-sm"
+                      className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-yellow focus:border-yellow sm:text-sm"
                       placeholder={t("share_additional_notes")}
                       defaultValue={props.booking ? props.booking.description : ""}
                     />

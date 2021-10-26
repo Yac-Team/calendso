@@ -419,7 +419,7 @@ export default function Onboarding(props: InferGetServerSidePropsType<typeof get
                 </label>
                 <Text variant="caption">
                   Current time:&nbsp;
-                  <span className="text-black">{currentTime}</span>
+                  <span className="text-yellow">{currentTime}</span>
                 </Text>
               </section>
               <TimezoneSelect
@@ -475,7 +475,7 @@ export default function Onboarding(props: InferGetServerSidePropsType<typeof get
         "Define ranges of time when you are available on a recurring basis. You can create more of these later and assign them to different calendars.",
       Component: (
         <>
-          <section className="max-w-lg mx-auto text-black bg-white ">
+          <section className="max-w-lg mx-auto text-yellow bg-white ">
             <SchedulerForm
               onSubmit={async (data) => {
                 try {
@@ -616,7 +616,7 @@ export default function Onboarding(props: InferGetServerSidePropsType<typeof get
                         index < currentStep ? "cursor-pointer" : ""
                       )}></div>
                   ) : (
-                    <div key={`step-${index}`} className="w-1/4 h-1 bg-black bg-opacity-25"></div>
+                    <div key={`step-${index}`} className="w-1/4 h-1 bg-yellow bg-opacity-25"></div>
                   );
                 })}
               </section>

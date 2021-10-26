@@ -130,7 +130,7 @@ export default function Success(props: InferGetServerSidePropsType<typeof getSer
                               {(location as string).match(
                                 /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/
                               ) ? (
-                                <a className="text-black hover:opacity-80" href={location as string}>
+                                <a className="text-yellow hover:opacity-80" href={location as string}>
                                   {location}
                                 </a>
                               ) : (

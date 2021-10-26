@@ -55,7 +55,7 @@ export default function CancelSuccess(props) {
                   </div>
                 </div>
                 {/* <div className="mt-5 text-center sm:mt-6">
-                  <a className="text-black hover:opacity-90" href="/">
+                  <a className="text-yellow hover:opacity-90" href="/">
                     Go back home
                   </a>
                 </div>

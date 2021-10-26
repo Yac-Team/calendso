@@ -119,7 +119,7 @@ function AvailabilityPage(props: Props) {
                     truncateAfter={5}
                   />
                   <div className="ml-3">
-                    <p className="text-sm font-medium text-black ">{profile.name}</p>
+                    <p className="text-sm font-medium text-yellow ">{profile.name}</p>
                     <div className="flex gap-2 text-xs font-medium text-gray-600">
                       {eventType.title}
                       <div>

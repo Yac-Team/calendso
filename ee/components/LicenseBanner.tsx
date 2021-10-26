@@ -73,7 +73,7 @@ export default function LicenseBanner() {
         To remove this banner, please open your .env file and change the{" "}
         <span className="bg-green-400 text-green-500 bg-opacity-20 p-[2px]">NEXT_PUBLIC_LICENSE_CONSENT</span>{" "}
         variable to &apos;agree&apos;.
-        <h2 className="mt-8 mb-2 text-black font-cal">Summary of terms:</h2>
+        <h2 className="mt-8 mb-2 text-yellow font-cal">Summary of terms:</h2>
         <ul className="ml-5 list-disc">
           <li>The codebase has to stay open source, whether it was modified or not</li>
           <li>You can not repackage or sell the codebase</li>
