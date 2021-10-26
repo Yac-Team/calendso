@@ -201,7 +201,7 @@ export default function Home({ integrations }: InferGetServerSidePropsType<typeo
                           <img
                             src="https://marketplacecontent.zoom.us/zoom_marketplace/img/add_to_zoom.png"
                             height="32"
-                            alt="Add to ZOOM"
+                            alt="Add to Zoom"
                           />
                         </a>
                       ) : (
