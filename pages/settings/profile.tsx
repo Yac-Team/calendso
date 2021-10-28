@@ -125,7 +125,7 @@ export default function Settings(props: InferGetServerSidePropsType<typeof getSe
                       autoComplete="given-name"
                       placeholder="Your name"
                       required
-                      className="block w-full px-3 py-2 mt-1 text-gray-900 placeholder-gray-600 bg-gray-300 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow focus:border-yellow sm:text-sm"
+                      className="block w-full px-3 py-2 mt-1 text-gray-500 placeholder-gray-600 bg-gray-400 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow focus:border-yellow sm:text-sm"
                       defaultValue={props.user.name}
                     />
                   </div>
@@ -142,7 +142,7 @@ export default function Settings(props: InferGetServerSidePropsType<typeof getSe
                       id="email"
                       placeholder="Your email"
                       disabled
-                      className="block w-full px-3 py-2 mt-1 text-gray-500 border border-gray-300 rounded-l-sm bg-gray-50 sm:text-sm"
+                      className="block w-full px-3 py-2 mt-1 text-gray-500 bg-gray-400 border border-gray-300 rounded-l-sm sm:text-sm"
                       defaultValue={props.user.email}
                     />
                     <p className="mt-2 text-sm text-gray-500" id="email-description">
@@ -166,7 +166,7 @@ export default function Settings(props: InferGetServerSidePropsType<typeof getSe
                       placeholder="A little something about yourself."
                       rows={3}
                       defaultValue={props.user.bio}
-                      className="block w-full px-3 py-2 mt-1 text-gray-900 placeholder-gray-600 bg-gray-300 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow focus:border-yellow sm:text-sm"></textarea>
+                      className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow focus:border-yellow sm:text-sm"></textarea>
                   </div>
                 </div>
                 <div>
@@ -247,22 +247,24 @@ export default function Settings(props: InferGetServerSidePropsType<typeof getSe
                   </div>
                 )}
                 <div>
-                  <>
-                    <label htmlFor="theme" className="block text-sm font-medium text-gray-700">
-                      Single Theme
-                    </label>
-                    <div className="my-1">
-                      <Select
-                        id="theme"
-                        isDisabled={!selectedTheme}
-                        defaultValue={selectedTheme || themeOptions[0]}
-                        value={selectedTheme || themeOptions[0]}
-                        onChange={setSelectedTheme}
-                        className="block w-full mt-1 border-gray-300 rounded-sm shadow-sm focus:ring-neutral-500 focus:border-neutral-500 sm:text-sm"
-                        options={themeOptions}
-                      />
-                    </div>
-                  </>
+                  {Math.random() > 1 && (
+                    <>
+                      <label htmlFor="theme" className="block text-sm font-medium text-gray-700">
+                        Single Theme
+                      </label>
+                      <div className="my-1">
+                        <Select
+                          id="theme"
+                          isDisabled={!selectedTheme}
+                          defaultValue={selectedTheme || themeOptions[0]}
+                          value={selectedTheme || themeOptions[0]}
+                          onChange={setSelectedTheme}
+                          className="block w-full mt-1 border-gray-300 rounded-sm shadow-sm focus:ring-neutral-500 focus:border-neutral-500 sm:text-sm"
+                          options={themeOptions}
+                        />
+                      </div>
+                    </>
+                  )}
 
                   <div className="relative flex items-start mt-8">
                     <div className="flex items-center h-5">

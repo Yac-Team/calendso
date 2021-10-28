@@ -150,15 +150,15 @@ export default function Shell(props: {
                       <a
                         className={classNames(
                           item.current
-                            ? "bg-neutral-100 text-neutral-900"
-                            : "text-neutral-500 hover:bg-gray-50 hover:text-neutral-900",
+                            ? "bg-neutral-200 text-neutral-900"
+                            : "text-neutral-600 hover:bg-gray-50 hover:text-neutral-900",
                           "group flex items-center px-2 py-2 text-sm font-medium rounded-sm"
                         )}>
                         <item.icon
                           className={classNames(
                             item.current
-                              ? "text-neutral-800"
-                              : "text-neutral-500 group-hover:text-neutral-500",
+                              ? "text-neutral-900"
+                              : "text-neutral-600 group-hover:text-neutral-500",
                             "mr-3 flex-shrink-0 h-5 w-5"
                           )}
                           aria-hidden="true"
