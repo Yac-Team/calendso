@@ -4,14 +4,14 @@ export default function Logo({ small }: { small?: boolean }) {
       <strong>
         <img
           className={"inline dark:hidden " + (small ? "h-4 w-auto" : "h-5 w-auto")}
-          alt="Cal"
-          title="Cal"
+          alt="Yac Logo"
+          title="Yac"
           src="/yac-logo-word.svg"
         />
         <img
           className={"hidden dark:inline " + (small ? "h-4 w-auto" : "h-5 w-auto")}
-          alt="Cal"
-          title="Cal"
+          alt="Yac Logo"
+          title="Yac"
           src="/yac-logo-white-word.svg"
         />
       </strong>
