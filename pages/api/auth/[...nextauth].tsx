@@ -81,13 +81,13 @@ export default NextAuth({
               },
             })
           ).json()) || {}
-        ).sessionData as { image: string; email: string; teamId: string };
+        ).sessionData as { mobileImage: string; email: string; teamId: number };
         const {
           id,
           realName: name,
           username,
           email,
-          image,
+          mobileImage: image,
           teamId,
         } = { ...yacSessionData, ...yacProfileData };
 
@@ -225,7 +225,6 @@ export default NextAuth({
             },
           });
         }
-
         return {
           id,
           name,
@@ -248,6 +247,7 @@ export default NextAuth({
       return token;
     },
     async session(session, token) {
+      console.log({ session, token });
       const calendsoSession: Session = {
         ...session,
         user: {
