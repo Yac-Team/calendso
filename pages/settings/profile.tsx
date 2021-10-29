@@ -145,12 +145,6 @@ export default function Settings(props: InferGetServerSidePropsType<typeof getSe
                       className="block w-full px-3 py-2 mt-1 text-gray-500 bg-gray-400 border border-gray-300 rounded-l-sm sm:text-sm"
                       defaultValue={props.user.email}
                     />
-                    <p className="mt-2 text-sm text-gray-500" id="email-description">
-                      To change your email, please contact{" "}
-                      <a className="text-blue-500" href="mailto:help@cal.com">
-                        help@cal.com
-                      </a>
-                    </p>
                   </div>
                 </div>
 
