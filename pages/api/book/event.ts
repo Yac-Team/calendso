@@ -320,7 +320,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         body: JSON.stringify({
           createdBy: users[0].id,
           teamId: users[0].teamId,
-          name: req.body.topic + " - " + evt.title.replace("[async] ", ""),
+          name: evt.title.replace("[async] ", "") + " - " + req.body.topic,
           bio: req.body.notes || "This meeting was created with Yac Meet and has no notes.",
         }),
       });
