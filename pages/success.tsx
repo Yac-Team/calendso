@@ -147,7 +147,7 @@ export default function Success(props: InferGetServerSidePropsType<typeof getSer
                       <span className="flex self-center mr-6 font-medium text-gray-700 ">
                         Add to calendar
                       </span>
-                      <div className="flex invert">
+                      <div className="flex dark:invert">
                         <Link
                           href={
                             `https://calendar.google.com/calendar/r/eventedit?dates=${date
