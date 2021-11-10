@@ -105,7 +105,7 @@ export default class CalEventParser {
       return `
 ${getIntegrationName(this.optionalVideoCallData.type)} meeting
 ID: ${this.optionalVideoCallData.id}
-Password: ${this.optionalVideoCallData.password}
+Password: ${this.optionalVideoCallData.password || "This meeting doesn’t require a password."}
 ${this.calEvent.description}`;
     }
     return this.calEvent.description;
