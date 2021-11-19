@@ -49,36 +49,53 @@ if (process.env.GOOGLE_API_CREDENTIALS && !validJson(process.env.GOOGLE_API_CRED
 const plugins = [withBundleAnalyzer, withTM];
 
 // prettier-ignore
-module.exports = () => plugins.reduce((acc, next) => next(acc), {
-  i18n,
-  eslint: {
-    // This allows production builds to successfully complete even if the project has ESLint errors.
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  webpack: (config) => {
-    config.resolve.fallback = {
-      ...config.resolve.fallback, // if you miss it, all the other options in fallback, specified
-      // by next.js will be dropped. Doesn't make much sense, but how it is
-      fs: false,
-    };
+module.exports = () =>
+  plugins.reduce((acc, next) => next(acc), {
+    i18n,
+    eslint: {
+      // This allows production builds to successfully complete even if the project has ESLint errors.
+      ignoreDuringBuilds: true,
+    },
+    typescript: {
+      ignoreBuildErrors: true,
+    },
+    webpack: (config) => {
+      config.resolve.fallback = {
+        ...config.resolve.fallback, // if you miss it, all the other options in fallback, specified
+        // by next.js will be dropped. Doesn't make much sense, but how it is
+        fs: false,
+      };
 
-    return config;
-  },
-  async redirects() {
-    return [
-      {
-        source: "/settings",
-        destination: "/settings/profile",
-        permanent: true,
-      },
-      {
-        source: "/bookings",
-        destination: "/bookings/upcoming",
-        permanent: true,
-      },
-    ];
-  },
-});
+      return config;
+    },
+    async redirects() {
+      return [
+        {
+          source: "/settings",
+          destination: "/settings/profile",
+          permanent: true,
+        },
+        {
+          source: "/bookings",
+          destination: "/bookings/upcoming",
+          permanent: true,
+        },
+      ];
+    },
+    async headers() {
+      return [
+        {
+          headers: [
+            {
+              key: "X-Frame-Options",
+              value: "sameorigin",
+            },
+            {
+              key: "Content-Security-Policy",
+              value: "frame-ancestors 'self';",
+            },
+          ],
+        },
+      ];
+    },
+  });
