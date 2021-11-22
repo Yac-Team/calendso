@@ -82,21 +82,21 @@ module.exports = () =>
         },
       ];
     },
-    // async headers() {
-    //   return [
-    //     {
-    //       source: "/(.*)",
-    //       headers: [
-    //         {
-    //           key: "X-Frame-Options",
-    //           value: "sameorigin",
-    //         },
-    //         {
-    //           key: "Content-Security-Policy",
-    //           value: "frame-ancestors 'self';",
-    //         },
-    //       ],
-    //     },
-    //   ];
-    // },
+    async headers() {
+      return [
+        {
+          source: "/(.*)",
+          headers: [
+            {
+              key: "X-Frame-Options",
+              value: "sameorigin",
+            },
+            {
+              key: "Content-Security-Policy",
+              value: "frame-ancestors 'self';",
+            },
+          ],
+        },
+      ];
+    },
   });
