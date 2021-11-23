@@ -34,24 +34,24 @@ export default function ConfirmationDialogContent(props: PropsWithChildren<Confi
         {variety && (
           <div className="mr-3 mt-0.5">
             {variety === "danger" && (
-              <div className="text-center p-2 rounded-full mx-auto bg-red-100">
+              <div className="p-2 mx-auto text-center bg-red-100 rounded-full">
                 <ExclamationIcon className="w-5 h-5 text-red-600" />
               </div>
             )}
             {variety === "warning" && (
-              <div className="text-center p-2 rounded-full mx-auto bg-orange-100">
+              <div className="p-2 mx-auto text-center bg-orange-100 rounded-full">
                 <ExclamationIcon className="w-5 h-5 text-orange-600" />
               </div>
             )}
             {variety === "success" && (
-              <div className="text-center p-2 rounded-full mx-auto bg-green-100">
+              <div className="p-2 mx-auto text-center bg-green-100 rounded-full">
                 <CheckIcon className="w-5 h-5 text-green-600" />
               </div>
             )}
           </div>
         )}
         <div>
-          <DialogPrimitive.Title className="font-cal text-xl font-bold text-gray-900">
+          <DialogPrimitive.Title className="text-xl font-bold text-gray-900 font-cal">
             {title}
           </DialogPrimitive.Title>
           <DialogPrimitive.Description className="text-neutral-500">{children}</DialogPrimitive.Description>
