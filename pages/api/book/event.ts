@@ -12,6 +12,7 @@ import { v5 as uuidv5 } from "uuid";
 import { handlePayment } from "@ee/lib/stripe/server";
 
 import { CalendarEvent, getBusyCalendarTimes } from "@lib/calendarClient";
+import { symmetricDecrypt } from "@lib/crypto";
 import AsyncEventAttendeeMail from "@lib/emails/AsyncEventAttendeeMail";
 import AsyncEventOrganizerMail from "@lib/emails/AsyncEventOrganizerMail";
 import EventOrganizerRequestMail from "@lib/emails/EventOrganizerRequestMail";
@@ -125,7 +126,7 @@ function isOutOfBounds(
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const reqBody = req.body as BookingCreateBody;
+  const reqBody = JSON.parse(req.body) as BookingCreateBody;
   const eventTypeId = reqBody.eventTypeId;
 
   log.debug(`Booking eventType ${eventTypeId} started`);
@@ -193,6 +194,30 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (!eventType) return res.status(404).json({ message: "eventType.notFound" });
 
   let users = eventType.users;
+
+  const securityCheck = req.headers["x-calendso-security-check"];
+  if (!securityCheck) {
+    const error = {
+      errorCode: "NoSecurityCheck",
+      message: "No security check header was passed.",
+    };
+    log.error(`Booking ${eventTypeId} failed`, error);
+    return res.status(400).json(error);
+  }
+
+  const decryptedSecurityCheck = symmetricDecrypt(
+    securityCheck as string,
+    process.env.CALENDSO_ENCRYPTION_KEY as string
+  );
+  const securityCheckParts = decryptedSecurityCheck.split("__");
+  if (Number(securityCheckParts[0]) !== Number(eventTypeId) || securityCheckParts[1] !== users[0].username) {
+    const error = {
+      errorCode: "FailedSecurityCheck",
+      message: "Incorrect security check header was passed.",
+    };
+    log.error(`Booking ${eventTypeId} failed`, error);
+    return res.status(400).json(error);
+  }
 
   /* If this event was pre-relationship migration */
   if (!users.length && eventType.userId) {

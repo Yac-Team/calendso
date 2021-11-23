@@ -1,11 +1,11 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
-  "editor.formatOnSave": true,
   // Auto-fix issues with ESLint when you save code changes
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
   "eslint.run": "onSave",
   "WillLuke.nextjs.addTypesOnSave": true,
-  "WillLuke.nextjs.hasPrompted": true
+  "WillLuke.nextjs.hasPrompted": true,
+  "editor.formatOnSaveMode": "modificationsIfAvailable"
 }

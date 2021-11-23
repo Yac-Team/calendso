@@ -26,6 +26,7 @@ import { LocationType } from "@lib/location";
 import createBooking from "@lib/mutations/bookings/create-booking";
 import { parseZone } from "@lib/parseZone";
 import { collectPageParameters, telemetryEventTypes, useTelemetry } from "@lib/telemetry";
+import { BookingCreateBody } from "@lib/types/booking";
 
 import AvatarGroup from "@components/ui/AvatarGroup";
 import { Button } from "@components/ui/Button";
@@ -138,7 +139,10 @@ const BookingPage = (props: BookingPageProps) => {
         jitsu.track(telemetryEventTypes.bookingConfirmed, collectPageParameters())
       );
 
-      const content = await createBooking(payload).catch((e) => {
+      const content = await createBooking({
+        ...(payload as BookingCreateBody),
+        securityCheck: props.eventType.securityCheck as string,
+      }).catch((e) => {
         console.error(e.message);
         setLoading(false);
         setError(true);
@@ -478,10 +482,10 @@ const BookingPage = (props: BookingPageProps) => {
                   <div className="p-4 mt-2 border-l-4 border-yellow-400 bg-yellow-50">
                     <div className="flex">
                       <div className="flex-shrink-0">
-                        <ExclamationIcon className="w-5 h-5 text-yellow-400" aria-hidden="true" />
+                        <ExclamationIcon className="w-5 h-5 text-red-600" aria-hidden="true" />
                       </div>
                       <div className="ml-3">
-                        <p className="text-sm text-yellow-700">
+                        <p className="text-sm text-red-600">
                           {rescheduleUid ? t("reschedule_fail") : t("booking_fail")}
                         </p>
                       </div>

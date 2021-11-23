@@ -22,7 +22,7 @@ class MyDocument extends Document<Props> {
           <meta name="theme-color" content="#F3C93C" media="(prefers-color-scheme: light)" />
           <meta name="theme-color" content="#141414" media="(prefers-color-scheme: dark)" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
           <link
             href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap"
             rel="stylesheet"

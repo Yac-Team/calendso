@@ -56,7 +56,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (!rawUser) throw new Error("No user found");
 
   const { selectedCalendars, ...currentUser } = rawUser;
-
   const busyTimes = await getBusyCalendarTimes(
     currentUser.credentials,
     dateFrom.format(),
