@@ -6,6 +6,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import { asStringOrThrow } from "@lib/asStringOrNull";
 import { getOrSetUserLocaleFromHeaders } from "@lib/core/i18n/i18n.utils";
+import { symmetricEncrypt } from "@lib/crypto";
 import prisma from "@lib/prisma";
 import { inferSSRProps } from "@lib/types/inferSSRProps";
 
@@ -118,7 +119,13 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         theme: user.theme,
         asyncUseCalendar: user.asyncUseCalendar,
       },
-      eventType: eventTypeObject,
+      eventType: {
+        ...eventTypeObject,
+        securityCheck: symmetricEncrypt(
+          String(eventTypeObject.id) + "__" + String(user.username),
+          process.env.CALENDSO_ENCRYPTION_KEY as string
+        ),
+      },
       booking,
       ...(await serverSideTranslations(locale, ["common"])),
     },

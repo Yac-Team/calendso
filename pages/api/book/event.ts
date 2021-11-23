@@ -126,7 +126,7 @@ function isOutOfBounds(
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const reqBody = req.body as BookingCreateBody;
+  const reqBody = JSON.parse(req.body) as BookingCreateBody;
   const eventTypeId = reqBody.eventTypeId;
 
   log.debug(`Booking eventType ${eventTypeId} started`);
@@ -195,7 +195,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   let users = eventType.users;
 
-  const securityCheck = req.headers["X-Calendso-Security-Check"];
+  const securityCheck = req.headers["x-calendso-security-check"];
   if (!securityCheck) {
     const error = {
       errorCode: "NoSecurityCheck",
@@ -210,11 +210,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     process.env.CALENDSO_ENCRYPTION_KEY as string
   );
   const securityCheckParts = decryptedSecurityCheck.split("__");
-  if (
-    !isNaN(Number(securityCheckParts[0])) &&
-    Number(securityCheckParts[0]) !== Number(eventTypeId) &&
-    securityCheckParts[1] !== users[0].username
-  ) {
+  if (Number(securityCheckParts[0]) !== Number(eventTypeId) || securityCheckParts[1] !== users[0].username) {
     const error = {
       errorCode: "FailedSecurityCheck",
       message: "Incorrect security check header was passed.",
