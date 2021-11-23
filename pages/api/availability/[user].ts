@@ -9,6 +9,7 @@ import prisma from "@lib/prisma";
 import { Prisma } from ".prisma/client";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  console.log({ query: req.query });
   const user = asStringOrNull(req.query.user);
   const dateFrom = dayjs(asStringOrNull(req.query.dateFrom));
   const dateTo = dayjs(asStringOrNull(req.query.dateTo));
@@ -57,6 +58,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const { selectedCalendars, ...currentUser } = rawUser;
 
+  console.log({
+    busyTimesParams: [currentUser.credentials, dateFrom.format(), dateTo.format(), selectedCalendars],
+  });
   const busyTimes = await getBusyCalendarTimes(
     currentUser.credentials,
     dateFrom.format(),
