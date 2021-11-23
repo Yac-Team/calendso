@@ -9,7 +9,6 @@ import prisma from "@lib/prisma";
 import { Prisma } from ".prisma/client";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  console.log({ query: req.query });
   const user = asStringOrNull(req.query.user);
   const dateFrom = dayjs(asStringOrNull(req.query.dateFrom));
   const dateTo = dayjs(asStringOrNull(req.query.dateTo));
@@ -57,17 +56,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (!rawUser) throw new Error("No user found");
 
   const { selectedCalendars, ...currentUser } = rawUser;
-
-  console.log({
-    busyTimesParams: [currentUser.credentials, dateFrom.format(), dateTo.format(), selectedCalendars],
-  });
+  currentUser.credentials.map(console.log);
   const busyTimes = await getBusyCalendarTimes(
     currentUser.credentials,
     dateFrom.format(),
     dateTo.format(),
     selectedCalendars
   );
-  console.log("Here 1", { busyTimes });
 
   // busyTimes.push(...await getBusyVideoTimes(currentUser.credentials, dateFrom.format(), dateTo.format()));
 
@@ -75,7 +70,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     start: dayjs(a.start).subtract(currentUser.bufferTime, "minute").toString(),
     end: dayjs(a.end).add(currentUser.bufferTime, "minute").toString(),
   }));
-  console.log("Here 1", { bufferedBusyTimes });
 
   const timeZone = eventType?.timeZone || currentUser.timeZone;
   const defaultAvailability = {
@@ -87,13 +81,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     ? eventType.availability
     : // currentUser.availability /* note(zomars) There's no UI nor default for this as of today */
       [defaultAvailability]; /* note(zomars) For now, make every day available as fallback */
-  console.log({
-    end: {
-      busy: bufferedBusyTimes,
-      timeZone,
-      workingHours,
-    },
-  });
+
   res.status(200).json({
     busy: bufferedBusyTimes,
     timeZone,
