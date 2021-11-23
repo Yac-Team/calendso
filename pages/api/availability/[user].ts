@@ -67,6 +67,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     dateTo.format(),
     selectedCalendars
   );
+  console.log("Here 1", { busyTimes });
 
   // busyTimes.push(...await getBusyVideoTimes(currentUser.credentials, dateFrom.format(), dateTo.format()));
 
@@ -74,6 +75,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     start: dayjs(a.start).subtract(currentUser.bufferTime, "minute").toString(),
     end: dayjs(a.end).add(currentUser.bufferTime, "minute").toString(),
   }));
+  console.log("Here 1", { bufferedBusyTimes });
 
   const timeZone = eventType?.timeZone || currentUser.timeZone;
   const defaultAvailability = {
@@ -85,7 +87,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     ? eventType.availability
     : // currentUser.availability /* note(zomars) There's no UI nor default for this as of today */
       [defaultAvailability]; /* note(zomars) For now, make every day available as fallback */
-
+  console.log({
+    end: {
+      busy: bufferedBusyTimes,
+      timeZone,
+      workingHours,
+    },
+  });
   res.status(200).json({
     busy: bufferedBusyTimes,
     timeZone,
