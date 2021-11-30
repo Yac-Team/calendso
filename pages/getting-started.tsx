@@ -475,7 +475,7 @@ export default function Onboarding(props: InferGetServerSidePropsType<typeof get
         "Define ranges of time when you are available on a recurring basis. You can create more of these later and assign them to different calendars.",
       Component: (
         <>
-          <section className="max-w-lg mx-auto text-yellow bg-white ">
+          <section className="max-w-lg mx-auto bg-white text-yellow ">
             <SchedulerForm
               onSubmit={async (data) => {
                 try {
@@ -591,10 +591,10 @@ export default function Onboarding(props: InferGetServerSidePropsType<typeof get
         <article className="relative">
           <section className="space-y-4 sm:mx-auto sm:w-full sm:max-w-lg">
             <header>
-              <Text className="text-[#fff]" variant="largetitle">
+              <Text className="text-black" variant="largetitle">
                 {steps[currentStep].title}
               </Text>
-              <Text className="text-[#fff]" variant="subtitle">
+              <Text className="text-black" variant="subtitle">
                 {steps[currentStep].description}
               </Text>
             </header>
@@ -616,7 +616,7 @@ export default function Onboarding(props: InferGetServerSidePropsType<typeof get
                         index < currentStep ? "cursor-pointer" : ""
                       )}></div>
                   ) : (
-                    <div key={`step-${index}`} className="w-1/4 h-1 bg-yellow bg-opacity-25"></div>
+                    <div key={`step-${index}`} className="w-1/4 h-1 bg-opacity-75 bg-yellow"></div>
                   );
                 })}
               </section>
