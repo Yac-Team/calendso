@@ -124,17 +124,24 @@ export default function Type(props: InferGetServerSidePropsType<typeof getServer
                         </div>
                       </div>
                     </div>
-                    {props.cancellationAllowed && (
+                    <div className="flex space-x-2 justify-center">
+                      {props.cancellationAllowed && (
+                        <div className="mt-5 space-x-2 text-center sm:mt-6">
+                          <Button
+                            color="secondary"
+                            data-testid="cancel"
+                            onClick={cancellationHandler}
+                            loading={loading}>
+                            Cancel
+                          </Button>
+                        </div>
+                      )}
                       <div className="mt-5 space-x-2 text-center sm:mt-6">
-                        <Button
-                          color="secondary"
-                          data-testid="cancel"
-                          onClick={cancellationHandler}
-                          loading={loading}>
-                          Cancel
+                        <Button color="secondary" onClick={() => router.back()}>
+                          Go Back
                         </Button>
                       </div>
-                    )}
+                    </div>
                   </>
                 )}
               </div>

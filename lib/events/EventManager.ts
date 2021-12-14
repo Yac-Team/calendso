@@ -94,10 +94,12 @@ export default class EventManager {
     try {
       if (isDedicated) {
         const result = await this.createVideoEvent(event, maybeUid);
-        if (result.videoCallData) {
-          optionalVideoCallData = result.videoCallData;
+        if (result) {
+          if (result.videoCallData) {
+            optionalVideoCallData = result.videoCallData;
+          }
+          results.push(result);
         }
-        results.push(result);
       } else {
         await EventManager.sendAttendeeMail("new", results, event, maybeUid);
       }
@@ -178,10 +180,14 @@ export default class EventManager {
     // If and only if event type is a dedicated meeting, update the dedicated video meeting.
     if (isDedicated) {
       const result = await this.updateVideoEvent(event, booking);
-      if (result.videoCallData) {
-        optionalVideoCallData = result.videoCallData;
+      if (result) {
+        if (result.videoCallData && typeof result === "object") {
+          if (result.videoCallData) {
+            optionalVideoCallData = result.videoCallData;
+          }
+          results.push(result);
+        }
       }
-      results.push(result);
     } else {
       await EventManager.sendAttendeeMail("reschedule", results, event, rescheduleUid);
     }
@@ -191,26 +197,6 @@ export default class EventManager {
     results = results.concat(
       await this.updateAllCalendarEvents(event, booking, isDedicated, optionalVideoCallData)
     );
-
-    // Now we can delete the old booking and its references.
-    const bookingReferenceDeletes = prisma.bookingReference.deleteMany({
-      where: {
-        bookingId: booking.id,
-      },
-    });
-    const attendeeDeletes = prisma.attendee.deleteMany({
-      where: {
-        bookingId: booking.id,
-      },
-    });
-    const bookingDeletes = prisma.booking.delete({
-      where: {
-        uid: rescheduleUid,
-      },
-    });
-
-    // Wait for all deletions to be applied.
-    await Promise.all([bookingReferenceDeletes, attendeeDeletes, bookingDeletes]);
 
     return {
       results,
@@ -316,14 +302,17 @@ export default class EventManager {
 
     if (credential && !isDaily) {
       const bookingRef = booking.references.filter((ref) => ref.type === credential.type)[0];
-
-      return updateMeeting(credential, bookingRef.uid, event).then((returnVal: EventResult) => {
-        // Some video integrations, such as Zoom, don't return any data about the booking when updating it.
-        if (returnVal.videoCallData == undefined) {
-          returnVal.videoCallData = EventManager.bookingReferenceToVideoCallData(bookingRef);
-        }
-        return returnVal;
-      });
+      if (bookingRef) {
+        return updateMeeting(credential, bookingRef.uid, event).then((returnVal: EventResult) => {
+          // Some video integrations, such as Zoom, don't return any data about the booking when updating it.
+          if (returnVal.videoCallData == undefined) {
+            returnVal.videoCallData = EventManager.bookingReferenceToVideoCallData(bookingRef);
+          }
+          return returnVal;
+        });
+      }
+      // throw new Error("No booking reference found for the given credentials.");
+      // return Promise.reject("No booking reference found for the given integration.");
     } else {
       if (isDaily) {
         const bookingRefUid = booking.references.filter((ref) => ref.type === "daily")[0].uid;
