@@ -48,8 +48,8 @@ export default function Type(props: InferGetServerSidePropsType<typeof getServer
     if (res.status >= 200 && res.status < 300) {
       // router.push("/cancel/success?user=" + props.user.username + "&title=" + props.booking.title);
       await router.push(
-        `/cancel/success?name=${props.profile.name}&title=${props.booking.title}&eventPage=${
-          props.profile.slug
+        `/cancel/success?name=${(props.profile || {}).name}&title=${props.booking.title}&eventPage=${
+          (props.profile || {}).slug
         }&team=${props.booking.eventType.team ? 1 : 0}`
       );
     } else {
@@ -61,8 +61,12 @@ export default function Type(props: InferGetServerSidePropsType<typeof getServer
   return (
     <div>
       <HeadSeo
-        title={`Cancel ${props.booking && props.booking.title} | ${props.profile.name}`}
-        description={`Cancel ${props.booking && props.booking.title} | ${props.profile.name}`}
+        title={`Cancel ${(props.booking && props.booking.title) || "Meeting"} ${
+          (props.profile || {}).name ? `| ${(props.profile || {}).name}` : ""
+        }`}
+        description={`Cancel ${props.booking && props.booking.title} ${
+          (props.profile || {}).name ? `| ${(props.profile || {}).name}` : ""
+        }`}
       />
       <main className="max-w-3xl mx-auto my-24">
         <div className="fixed inset-0 z-50 overflow-y-auto">
@@ -174,6 +178,8 @@ export async function getServerSideProps(context) {
       },
     },
   });
+
+  console.log({ booking });
 
   if (!booking) {
     // TODO: Booking is already cancelled
