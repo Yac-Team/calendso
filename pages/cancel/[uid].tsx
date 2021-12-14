@@ -22,7 +22,7 @@ export default function Type(props: InferGetServerSidePropsType<typeof getServer
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [is24h, setIs24h] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(props.booking ? null : "This meeting was already cancelled");
+  const [error, setError] = useState(props.booking ? null : "Meeting not found.");
   const telemetry = useTelemetry();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
