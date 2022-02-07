@@ -36,7 +36,7 @@ import { TeamBookingPageProps } from "../../../pages/team/[slug]/book";
 
 type BookingPageProps = BookPageProps | TeamBookingPageProps;
 
-const BookingPage = (props: BookingPageProps) => {
+function BookingPage(props: BookingPageProps) {
   const { t } = useLocale({ localeProp: props.localeProp });
   const router = useRouter();
   const { rescheduleUid } = router.query;
@@ -59,7 +59,7 @@ const BookingPage = (props: BookingPageProps) => {
 
   useEffect(() => {
     telemetry.withJitsu((jitsu) => jitsu.track(telemetryEventTypes.timeSelected, collectPageParameters()));
-  }, []);
+  }, [telemetry]);
 
   function toggleGuestEmailInput() {
     setGuestToggle(!guestToggle);
@@ -149,6 +149,7 @@ const BookingPage = (props: BookingPageProps) => {
       });
 
       if (content?.id) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const params: { [k: string]: any } = {
           date,
           type: props.eventType.id,
@@ -193,6 +194,7 @@ const BookingPage = (props: BookingPageProps) => {
     book();
   };
 
+  // es-lint-disable-next-line react-hooks/exhaustive-deps
   const bookingHandler = useCallback(_bookingHandler, []);
 
   return (
@@ -459,7 +461,7 @@ const BookingPage = (props: BookingPageProps) => {
                       {t("additional_notes")}
                     </label>
                     <textarea
-                      required={props.eventType.slug === "async"}
+                      required
                       name="notes"
                       id="notes"
                       rows={3}
@@ -499,6 +501,6 @@ const BookingPage = (props: BookingPageProps) => {
       </main>
     </div>
   );
-};
+}
 
 export default BookingPage;
