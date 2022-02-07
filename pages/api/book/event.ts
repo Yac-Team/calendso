@@ -288,9 +288,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const seed = `${users[0].username}:${
     req.body.start
       ? `${dayjs(req.body.start).utc().format()}:${new Date().getTime()}`
-      : `${Math.random() * 100}:${new Date().getTime()}`
+      : `${dayjs(new Date()).utc().format()}:${new Date().getTime()}`
   }`;
-  const uid = translator.fromUUID(uuidv5(seed, uuidv5.URL));
+
+  const rescheduleUid = reqBody.rescheduleUid;
+  const uid = rescheduleUid || translator.fromUUID(uuidv5(seed, uuidv5.URL));
 
   const evt: CalendarEvent = {
     type: eventType.title,
@@ -383,47 +385,65 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.status(500).json({ message: "Could not get Yac invite link" });
   }
 
-  const rescheduleUid = reqBody.rescheduleUid;
-
   function createBooking() {
-    return prisma.booking.create({
-      include: {
-        user: {
-          select: { email: true, name: true, timeZone: true },
+    if (rescheduleUid) {
+      return prisma.booking.update({
+        where: { uid: rescheduleUid },
+        data: {
+          title: evt.title,
+          startTime: evt.startTime ? dayjs(evt.startTime).toDate() : null,
+          endTime: evt.startTime ? dayjs(evt.endTime).toDate() : null,
+          description: evt.description,
+          location: evt.location,
         },
-        attendees: true,
-      },
-      data: {
-        uid,
-        title: evt.title,
-        startTime: evt.startTime ? dayjs(evt.startTime).toDate() : null,
-        endTime: evt.startTime ? dayjs(evt.endTime).toDate() : null,
-        description: evt.description,
-        confirmed: !eventType.requiresConfirmation || !!rescheduleUid,
-        location: evt.location,
-        eventType: {
-          connect: {
-            id: eventTypeId,
+        include: {
+          user: {
+            select: { email: true, name: true, timeZone: true },
+          },
+          attendees: true,
+        },
+      });
+    } else {
+      return prisma.booking.create({
+        include: {
+          user: {
+            select: { email: true, name: true, timeZone: true },
+          },
+          attendees: true,
+        },
+        data: {
+          uid,
+          title: evt.title,
+          startTime: evt.startTime ? dayjs(evt.startTime).toDate() : null,
+          endTime: evt.startTime ? dayjs(evt.endTime).toDate() : null,
+          description: evt.description,
+          confirmed: !eventType.requiresConfirmation || !!rescheduleUid,
+          location: evt.location,
+          eventType: {
+            connect: {
+              id: eventTypeId,
+            },
+          },
+          attendees: {
+            createMany: {
+              data: evt.attendees,
+            },
+          },
+          user: {
+            connect: {
+              id: users[0].id,
+            },
           },
         },
-        attendees: {
-          createMany: {
-            data: evt.attendees,
-          },
-        },
-        user: {
-          connect: {
-            id: users[0].id,
-          },
-        },
-      },
-    });
+      });
+    }
   }
 
   type Booking = Prisma.PromiseReturnType<typeof createBooking>;
   let booking: Booking | null = null;
   try {
     booking = await createBooking();
+    console.log("booking", booking);
   } catch (e) {
     log.error(`Booking ${eventTypeId} failed`, "Error when saving booking to db", e.message);
     if (e.code === "P2002") {
@@ -629,18 +649,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   );
   await Promise.all(promises);
 
-  await prisma.booking.update({
-    where: {
-      uid: booking.uid,
-    },
-    data: {
-      references: {
-        createMany: {
-          data: referencesToCreate,
+  if (referencesToCreate && referencesToCreate.length) {
+    await prisma.booking.update({
+      where: {
+        uid: booking.uid,
+      },
+      data: {
+        references: {
+          createMany: {
+            data: referencesToCreate,
+          },
         },
       },
-    },
-  });
+    });
+  }
 
   // booking successful
   return res.status(201).json(booking);

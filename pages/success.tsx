@@ -96,7 +96,11 @@ export default function Success(props: InferGetServerSidePropsType<typeof getSer
                     </div>
                     <div className="mt-3 text-center sm:mt-5">
                       <h3 className="text-2xl font-semibold leading-6 text-neutral-900" id="modal-headline">
-                        {needsConfirmation ? "Submitted" : "This meeting is scheduled"}
+                        {needsConfirmation
+                          ? "Submitted"
+                          : reschedule == "true"
+                          ? "Reschedule successful"
+                          : "This meeting is scheduled"}
                       </h3>
                       <div className="mt-3">
                         <p className="text-sm text-neutral-600 ">

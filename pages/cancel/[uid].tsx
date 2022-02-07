@@ -22,7 +22,7 @@ export default function Type(props: InferGetServerSidePropsType<typeof getServer
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [is24h, setIs24h] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(props.booking ? null : "This meeting was already cancelled");
+  const [error, setError] = useState(props.booking ? null : "Meeting not found.");
   const telemetry = useTelemetry();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -124,17 +124,24 @@ export default function Type(props: InferGetServerSidePropsType<typeof getServer
                         </div>
                       </div>
                     </div>
-                    {props.cancellationAllowed && (
+                    <div className="flex space-x-2 justify-center">
+                      {props.cancellationAllowed && (
+                        <div className="mt-5 space-x-2 text-center sm:mt-6">
+                          <Button
+                            color="secondary"
+                            data-testid="cancel"
+                            onClick={cancellationHandler}
+                            loading={loading}>
+                            Cancel
+                          </Button>
+                        </div>
+                      )}
                       <div className="mt-5 space-x-2 text-center sm:mt-6">
-                        <Button
-                          color="secondary"
-                          data-testid="cancel"
-                          onClick={cancellationHandler}
-                          loading={loading}>
-                          Cancel
+                        <Button color="secondary" onClick={() => router.back()}>
+                          Go Back
                         </Button>
                       </div>
-                    )}
+                    </div>
                   </>
                 )}
               </div>
