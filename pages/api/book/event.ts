@@ -649,7 +649,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   );
   await Promise.all(promises);
 
-  if (referencesToCreate && referencesToCreate.length) {
+  if (!rescheduleUid && referencesToCreate && referencesToCreate.length) {
     await prisma.booking.update({
       where: {
         uid: booking.uid,
